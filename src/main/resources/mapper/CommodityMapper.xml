@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taotao.mapper.CommodityMapper">
+
+    <resultMap id="BaseResultMap" type="com.taotao.entity.Commodity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="commodityName" column="commodity_name" jdbcType="VARCHAR"/>
+            <result property="listAsp" column="list_asp" jdbcType="VARCHAR"/>
+            <result property="cif" column="cif" jdbcType="VARCHAR"/>
+            <result property="price" column="price" jdbcType="FLOAT"/>
+            <result property="evaluate" column="evaluate" jdbcType="VARCHAR"/>
+            <result property="commodityType" column="commodity_type" jdbcType="VARCHAR"/>
+            <result property="userOtp" column="user_otp" jdbcType="INTEGER"/>
+            <result property="qoc" column="qoc" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,commodity_name,list_asp,
+        cif,price,evaluate,
+        commodity_type,user_otp,qoc
+    </sql>
+</mapper>
