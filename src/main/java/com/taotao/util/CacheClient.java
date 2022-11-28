@@ -7,13 +7,15 @@ import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
-import static com.taotao.util.RedisConstants.*;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+
+import static com.taotao.util.RedisConstants.LOCK_SHOP_KEY;
+import static com.taotao.util.RedisConstants.LOCK_SHOP_TTL;
 
 /**
  * @author YuLong

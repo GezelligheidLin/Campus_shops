@@ -3,18 +3,17 @@ package com.taotao.util;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.taotao.dto.AdminDTO;
-import com.taotao.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static com.taotao.util.RedisConstants.*;
-import static com.taotao.util.SystemConstants.*;
+import static com.taotao.util.RedisConstants.ADMIN_LOGIN_KEY;
+import static com.taotao.util.RedisConstants.ADMIN_TOKEN_TTL;
+import static com.taotao.util.SystemConstants.AUTHORIZATION;
 
 
 /**

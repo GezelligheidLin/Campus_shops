@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-import static com.taotao.util.SystemConstants.*;
+import static com.taotao.util.SystemConstants.CREATE_TIME;
+import static com.taotao.util.SystemConstants.UPDATE_TIME;
 
 /**
  * @author YuLong

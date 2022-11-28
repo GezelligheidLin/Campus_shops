@@ -6,9 +6,9 @@ import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.taotao.dto.Result;
 import com.taotao.dto.UserDTO;
 import com.taotao.dto.UserLoginFormDTO;
-import com.taotao.dto.Result;
 import com.taotao.entity.User;
 import com.taotao.mapper.UserMapper;
 import com.taotao.service.UserService;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -54,7 +53,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return Result.fail("手机号格式错误");
         }
         // 3.符合，生成验证码
-        String authCode = RandomUtil.randomNumbers(6);
+        String authCode = RandomUtil.randomNumbers(AUTH_CODE_LENGTH);
         // 4.保存验证码到 redis
         String codeKey = LOGIN_CODE_KEY + phone;
         stringRedisTemplate.opsForValue().set(codeKey, JSONUtil.toJsonStr(authCode));

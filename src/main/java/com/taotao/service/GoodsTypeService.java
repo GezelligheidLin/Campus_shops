@@ -1,6 +1,7 @@
 package com.taotao.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.taotao.dto.Result;
 import com.taotao.entity.GoodsType;
 
 /**
@@ -10,4 +11,9 @@ import com.taotao.entity.GoodsType;
 */
 public interface GoodsTypeService extends IService<GoodsType> {
 
+    /**
+     * 查询淘品分类
+     * @return
+     */
+    Result queryGoodsClassify();
 }

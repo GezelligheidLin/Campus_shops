@@ -13,8 +13,26 @@ import com.taotao.entity.Commodity;
 public interface CommodityService extends IService<Commodity> {
 
     /**
-     *
+     * 首页轮播图查询
      * @return
      */
-    Result queryList();
+    Result queryCarousel();
+
+    /**
+     * 首页甄选推荐查询
+     * @return
+     */
+    Result queryRecommend();
+
+    /**
+     * 首页专区选购查询
+     * @return
+     */
+    Result queryArea();
+    /**
+     * 首页猜你喜欢查询
+     * @return
+     */
+    Result queryLike();
+
 }

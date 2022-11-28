@@ -25,4 +25,4 @@ mybatis-plus:
   type-aliases-package: com.taotao.entity # 别名扫描包
 logging:
   level:
-    com.taotao: trace
+    com.taotao: debug

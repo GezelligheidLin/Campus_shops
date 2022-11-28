@@ -32,13 +32,10 @@ public class MvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns(
                         // 待添加
                         "/upload/**",
-                        "/user/code",
-                        "/user/login",
-                        "/user/register",
-                        "/admin/code",
-                        "/admin/login",
-                        "/admin/register",
-                        "/commodity/**"
+                        "/user/**",
+                        "/admin/**",
+                        "/home/**",
+                        "/goodsType/**"
                 ).order(2);
     }
 }

@@ -1,17 +1,14 @@
 package com.taotao.service.impl;
 
 
-import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.taotao.dto.Result;
 import com.taotao.entity.Commodity;
 import com.taotao.mapper.CommodityMapper;
 import com.taotao.service.CommodityService;
 import org.springframework.stereotype.Service;
-import static com.taotao.util.SystemConstants.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Resource;
 
 /**
 * @author YuLong
@@ -22,21 +19,49 @@ import java.util.List;
 public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity>
     implements CommodityService {
 
+    @Resource
+    private CommodityMapper commodityMapper;
+
+    private final static int CAROUSEL_SIZE = 4;
+    private final static int RECOMMEND_SIZE = 4;
+    private final static int AREA_SIZE = 4;
+    private final static int LIKE_SIZE = 4;
+
+
     /**
-     * 首页查询商品列表
+     * 首页轮播图查询
      * @return
      */
     @Override
-    public Result queryList() {
-        // TODO
-        final int size = 4;
-        List<Commodity> list = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            long id = RandomUtil.randomLong(1, 10);
-            list.add(query().eq(QUERY_COMMODITY_ID, id).one());
-        }
+    public Result queryCarousel() {
+        return Result.success(commodityMapper.selectCarousel(CAROUSEL_SIZE));
+    }
 
-        return Result.success(list);
+    /**
+     * 首页甄选推荐查询
+     * @return
+     */
+    @Override
+    public Result queryRecommend() {
+        return Result.success(commodityMapper.selectRecommend(RECOMMEND_SIZE));
+    }
+
+    /**
+     * 首页专区选购查询
+     * @return
+     */
+    @Override
+    public Result queryArea() {
+        return Result.success(commodityMapper.selectArea(AREA_SIZE));
+    }
+
+    /**
+     * 首页猜你喜欢查询
+     * @return
+     */
+    @Override
+    public Result queryLike() {
+        return Result.success(commodityMapper.selectLike(LIKE_SIZE));
     }
 
 

@@ -5,10 +5,12 @@
 <mapper namespace="com.taotao.mapper.GoodsTypeMapper">
 
     <resultMap id="BaseResultMap" type="com.taotao.entity.GoodsType">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="type" column="type" jdbcType="VARCHAR"/>
-            <result property="url" column="url" jdbcType="VARCHAR"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
-
+    <select id="selectClassify" resultType="com.taotao.entity.GoodsType">
+        SELECT * FROM goods_type LIMIT #{classifyNum};
+    </select>
 </mapper>

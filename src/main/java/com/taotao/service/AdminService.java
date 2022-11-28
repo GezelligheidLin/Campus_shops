@@ -5,11 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.taotao.dto.AdminLoginFormDTO;
 import com.taotao.dto.Result;
 import com.taotao.entity.Admin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 
 /**

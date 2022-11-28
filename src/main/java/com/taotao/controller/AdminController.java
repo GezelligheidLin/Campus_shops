@@ -1,6 +1,5 @@
 package com.taotao.controller;
 
-import cn.hutool.core.util.RandomUtil;
 import com.taotao.dto.AdminDTO;
 import com.taotao.dto.AdminLoginFormDTO;
 import com.taotao.dto.Result;
@@ -9,11 +8,8 @@ import com.taotao.util.AdminHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-
-import static com.taotao.util.SystemConstants.*;
 
 /**
  * @author YuLong

@@ -1,8 +1,8 @@
 package com.taotao.controller;
 
+import com.taotao.dto.Result;
 import com.taotao.dto.UserDTO;
 import com.taotao.dto.UserLoginFormDTO;
-import com.taotao.dto.Result;
 import com.taotao.entity.User;
 import com.taotao.service.UserService;
 import com.taotao.util.UserHolder;

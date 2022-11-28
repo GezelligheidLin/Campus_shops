@@ -22,9 +22,11 @@ public class SystemConstants {
     public static final Long LONG_RANDOM_START = 1000000000000000000L;
 
     public static final Integer PASSWORD_LENGTH = 16;
+    public static final Integer AUTH_CODE_LENGTH = 6;
 
     public static final String CREATE_TIME = "createTime";
     public static final String UPDATE_TIME = "updateTime";
+
 
     public static final Integer IS_ROOT = 1;
 
