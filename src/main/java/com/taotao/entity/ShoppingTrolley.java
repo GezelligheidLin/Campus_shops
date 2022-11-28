@@ -2,6 +2,7 @@ package com.taotao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -44,4 +45,9 @@ public class ShoppingTrolley implements Serializable {
     @TableField(value = "count")
     private Integer count;
 
+    /**
+     * 逻辑删除
+     */
+    @TableLogic
+    private Integer isDeleted;
 }

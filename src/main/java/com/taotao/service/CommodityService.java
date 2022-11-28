@@ -2,6 +2,7 @@ package com.taotao.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.taotao.dto.Result;
 import com.taotao.entity.Commodity;
 
 /**
@@ -11,4 +12,9 @@ import com.taotao.entity.Commodity;
 */
 public interface CommodityService extends IService<Commodity> {
 
+    /**
+     *
+     * @return
+     */
+    Result queryList();
 }

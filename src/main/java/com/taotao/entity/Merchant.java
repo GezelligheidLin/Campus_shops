@@ -39,6 +39,9 @@ public class Merchant implements Serializable {
     @TableField(value = "fansCount")
     private Integer fansCount;
 
+    /**
+     * 逻辑删除
+     */
     @TableLogic
     private Integer isDeleted;
 }

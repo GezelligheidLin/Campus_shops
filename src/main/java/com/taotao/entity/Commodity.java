@@ -67,14 +67,17 @@ public class Commodity implements Serializable {
      * 商品所属用户账号
      */
     @TableField(value = "user_otp")
-    private Integer userOtp;
+    private Long userOtp;
 
     /**
      * 商品数量
      */
     @TableField(value = "qoc")
-    private Integer qoc;
+    private Long qoc;
 
+    /**
+     * 逻辑删除
+     */
     @TableLogic
     private Integer isDeleted;
 }

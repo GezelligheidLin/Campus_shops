@@ -8,9 +8,7 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="type" column="type" jdbcType="VARCHAR"/>
             <result property="url" column="url" jdbcType="VARCHAR"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,type,url
-    </sql>
 </mapper>

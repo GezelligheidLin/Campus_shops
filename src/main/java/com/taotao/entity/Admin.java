@@ -1,12 +1,10 @@
 package com.taotao.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -23,22 +21,22 @@ public class Admin implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * 管理员账号，主键
      */
-    @TableId(value = "id")
-    private Long id;
-
-    /**
-     * 管理员账号
-     */
-    @TableField(value = "user_id")
-    private Integer userId;
+    @TableId(value = "admin_id")
+    private Long adminId;
 
     /**
      * 密码
      */
     @TableField(value = "password")
     private String password;
+
+    /**
+     * 手机号
+     */
+    @TableField(value = "phone")
+    private String phone;
 
     /**
      * 管理员真实姓名
@@ -61,21 +59,24 @@ public class Admin implements Serializable {
     /**
      * 是否为超级管理员
      */
-    @TableField(value = "super_admin")
-    private Integer superAdmin;
+    @TableField(value = "is_root")
+    private Integer isRoot;
 
     /**
      * 创建时间
      */
-    @TableField(value = "create_time")
-    private Date createTime;
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
-    @TableField(value = "update_time")
-    private Date updateTime;
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
+    /**
+     * 逻辑删除
+     */
     @TableLogic
     private Integer isDeleted;
 }

@@ -6,11 +6,9 @@
 
     <resultMap id="BaseResultMap" type="com.taotao.entity.ShopOrder">
             <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="user_id" column="user_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="shopped" column="shopped" jdbcType="VARCHAR"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,user_id,shopped
-    </sql>
 </mapper>

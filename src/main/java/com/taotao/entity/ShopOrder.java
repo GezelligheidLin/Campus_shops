@@ -2,6 +2,7 @@ package com.taotao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -30,12 +31,18 @@ public class ShopOrder implements Serializable {
      * 用户账号
      */
     @TableField(value = "user_id")
-    private Integer user_id;
+    private Integer userId;
 
     /**
      * 所有已购买的商品
      */
     @TableField(value = "shopped")
     private String shopped;
+
+    /**
+     * 逻辑删除
+     */
+    @TableLogic
+    private Integer isDeleted;
 
 }

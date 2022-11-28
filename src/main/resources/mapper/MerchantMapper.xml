@@ -8,9 +8,7 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="fans" column="fans" jdbcType="VARCHAR"/>
             <result property="fansCount" column="fansCount" jdbcType="INTEGER"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,fans,fansCount
-    </sql>
 </mapper>

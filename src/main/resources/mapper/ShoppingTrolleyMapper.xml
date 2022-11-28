@@ -9,10 +9,7 @@
             <result property="user_id" column="user_id" jdbcType="INTEGER"/>
             <result property="cif" column="cif" jdbcType="VARCHAR"/>
             <result property="count" column="count" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,user_id,cif,
-        count
-    </sql>
 </mapper>

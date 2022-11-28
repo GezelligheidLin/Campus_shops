@@ -38,6 +38,9 @@ public class GoodsType implements Serializable {
     @TableField(value = "url")
     private String url;
 
+    /**
+     * 逻辑删除
+     */
     @TableLogic
     private Integer isDeleted;
 }

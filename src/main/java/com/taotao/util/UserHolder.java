@@ -7,17 +7,18 @@ import com.taotao.dto.UserDTO;
  * Date: 2022/11/21 16:29
  */
 public class UserHolder {
-    private static final ThreadLocal<UserDTO> TL = new ThreadLocal<>();
+    private static final ThreadLocal<UserDTO> THREAD_LOCAL = new ThreadLocal<>();
+
+    public static void removeUser() {
+        THREAD_LOCAL.remove();
+    }
 
     public static void saveUser(UserDTO user) {
-        TL.set(user);
+        THREAD_LOCAL.set(user);
     }
 
     public static UserDTO getUser() {
-        return TL.get();
+        return THREAD_LOCAL.get();
     }
 
-    public static void removeUser() {
-        TL.remove();
-    }
 }

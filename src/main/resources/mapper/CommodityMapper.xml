@@ -14,11 +14,7 @@
             <result property="commodityType" column="commodity_type" jdbcType="VARCHAR"/>
             <result property="userOtp" column="user_otp" jdbcType="INTEGER"/>
             <result property="qoc" column="qoc" jdbcType="INTEGER"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,commodity_name,list_asp,
-        cif,price,evaluate,
-        commodity_type,user_otp,qoc
-    </sql>
 </mapper>

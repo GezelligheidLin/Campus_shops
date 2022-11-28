@@ -5,20 +5,16 @@
 <mapper namespace="com.taotao.mapper.AdminMapper">
 
     <resultMap id="BaseResultMap" type="com.taotao.entity.Admin">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="userId" column="user_id" jdbcType="INTEGER"/>
-            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <id property="adminId" column="admin_id" jdbcType="BIGINT"/>
+            <result property="phone" column="phone" jdbcType="CHAR"/>
+            <result property="password" column="password" jdbcType="CHAR"/>
             <result property="realName" column="real_name" jdbcType="VARCHAR"/>
-            <result property="sex" column="sex" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="CHAR"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
-            <result property="superAdmin" column="super_admin" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isRoot" column="is_root" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="DATETIMEOFFSET"/>
+            <result property="updateTime" column="update_time" jdbcType="DATETIMEOFFSET"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,user_id,password,
-        real_name,sex,status,
-        super_admin,create_time,update_time
-    </sql>
 </mapper>

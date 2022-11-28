@@ -1,11 +1,10 @@
 package com.taotao.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -22,19 +21,13 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * 账号，主键
      */
-    @TableId(value = "id")
-    private Long id;
+    @TableId(value = "user_id")
+    private Long userId;
 
     /**
-     * 账号
-     */
-    @TableField(value = "user_id")
-    private Integer userId;
-
-    /**
-     * 密码
+     * 密码，加密存储
      */
     @TableField(value = "password")
     private String password;
@@ -49,19 +42,19 @@ public class User implements Serializable {
      * 生日
      */
     @TableField(value = "birthday")
-    private String birthday;
+    private LocalDateTime birthday;
 
     /**
-     * 用户名
+     * 用户昵称
      */
     @TableField(value = "username")
-    private String username;
+    private String nickName;
 
     /**
      * 用户手机号
      */
     @TableField(value = "phone")
-    private Integer phone;
+    private String phone;
 
     /**
      * 用户地址
@@ -96,13 +89,18 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "create_time")
-    private Date createTime;
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
-    @TableField(value = "update_time")
-    private Date updateTime;
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
+    /**
+     * 逻辑删除
+     */
+    @TableLogic
+    private Integer isDeleted;
 }
