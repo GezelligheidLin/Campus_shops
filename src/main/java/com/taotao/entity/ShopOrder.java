@@ -31,7 +31,7 @@ public class ShopOrder implements Serializable {
      * 用户账号
      */
     @TableField(value = "user_id")
-    private Integer userId;
+    private Long userId;
 
     /**
      * 所有已购买的商品

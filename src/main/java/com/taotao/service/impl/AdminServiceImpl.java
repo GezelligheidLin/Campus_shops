@@ -40,9 +40,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     /**
      * 发送短信验证码
-     * @param phone
-     * @param session
-     * @return
+     * @param phone 手机号码
+     * @param session 会话控制
+     * @return 通用返回结果
      */
     @Override
     public Result sendCodeOfTel(String phone, HttpSession session) {
@@ -65,8 +65,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     /**
      * 管理员登录处理流程
-     * @param adminLoginFormDTO
-     * @return
+     * @param adminLoginFormDTO 管理员登录DTO
+     * @return 通用返回结果
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -104,7 +104,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
                 admin = query().eq(AUTH_PHONE, phone).one();
                 // 查不到，直接返回
                 if (admin == null) {
-                    return Result.event("1.是否要新建管理员?");
+                    return Result.fail("1.是否要新建管理员?");
                 }
                 encodedPassword = admin.getPassword();
                 flag = true;
@@ -124,7 +124,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         // 4.判断 admin是否为空
         if (admin == null) {
             // 数据库中没有该管理员，需创建，此时发送消息到前端询问超管是否要新建用户，可避免误输入而创建不必要的新管理员的情况
-            return Result.event("2.是否要新建管理员?");
+            return Result.fail("2.是否要新建管理员?");
         }
 
         // 5.一致，保存管理员信息到 redis
@@ -146,8 +146,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     /**
      * 管理员注册流程
-     * @param adminLoginFormDTO
-     * @return
+     * @param adminLoginFormDTO 管理员登录DTO
+     * @return 通用返回结果
      */
     @Override
     public Result registerProcess(AdminLoginFormDTO adminLoginFormDTO) {

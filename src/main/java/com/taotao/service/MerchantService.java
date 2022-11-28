@@ -2,6 +2,7 @@ package com.taotao.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.taotao.dto.Result;
 import com.taotao.entity.Merchant;
 
 /**
@@ -11,4 +12,9 @@ import com.taotao.entity.Merchant;
 */
 public interface MerchantService extends IService<Merchant> {
 
+    /**
+     * 查询热力榜
+     * @return 热力榜 list
+     */
+    Result queryHotRank();
 }

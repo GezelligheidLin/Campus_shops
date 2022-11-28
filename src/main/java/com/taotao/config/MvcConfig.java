@@ -31,11 +31,13 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginInterceptor())
                 .excludePathPatterns(
                         // 待添加
-                        "/upload/**",
-                        "/user/**",
-                        "/admin/**",
-                        "/home/**",
-                        "/goodsType/**"
+                        "/**/**"
+                        // "/upload/**",
+                        // "/user/**",
+                        // "/admin/**",
+                        // "/home/**",
+                        // "/goodsType/**",
+                        // "/merchant/**"
                 ).order(2);
     }
 }

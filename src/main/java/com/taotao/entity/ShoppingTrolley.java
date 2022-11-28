@@ -31,7 +31,7 @@ public class ShoppingTrolley implements Serializable {
      * 用户账号
      */
     @TableField(value = "user_id")
-    private Integer user_id;
+    private Long userId;
 
     /**
      * 商品简略信息
@@ -43,7 +43,7 @@ public class ShoppingTrolley implements Serializable {
      * 加入购物车的商品数量
      */
     @TableField(value = "count")
-    private Integer count;
+    private Long count;
 
     /**
      * 逻辑删除

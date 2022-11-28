@@ -37,7 +37,7 @@ public class Merchant implements Serializable {
      * 粉丝数量
      */
     @TableField(value = "fansCount")
-    private Integer fansCount;
+    private Long fansCount;
 
     /**
      * 逻辑删除

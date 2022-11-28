@@ -1,8 +1,13 @@
 package com.taotao.controller;
 
+import com.taotao.dto.Result;
+import com.taotao.service.MerchantService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author YuLong
@@ -12,4 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/merchant")
 public class MerchantController {
+
+    @Resource
+    private MerchantService merchantService;
+
+    @GetMapping("/hotRank")
+    public Result searchHotRank() {
+        log.info("商家热力榜查询。。。");
+        return merchantService.queryHotRank();
+    }
+
 }

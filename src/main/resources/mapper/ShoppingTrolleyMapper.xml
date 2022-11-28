@@ -6,9 +6,9 @@
 
     <resultMap id="BaseResultMap" type="com.taotao.entity.ShoppingTrolley">
             <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="user_id" column="user_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="cif" column="cif" jdbcType="VARCHAR"/>
-            <result property="count" column="count" jdbcType="INTEGER"/>
+            <result property="count" column="count" jdbcType="BIGINT"/>
         <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 

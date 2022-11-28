@@ -18,29 +18,20 @@ public class Result {
     private String errorMsg;
     private Object data;
     private Long total;
-    private String eventMsg;
 
     public static Result success() {
-        return new Result(true, null, null, null, null);
+        return new Result(true, null, null, null);
     }
 
     public static Result success(Object data) {
-        return new Result(true, null, data, null, null);
+        return new Result(true, null, data, null);
     }
 
     public static Result success(List<?> data, Long total) {
-        return new Result(true, null, data, total, null);
+        return new Result(true, null, data, total);
     }
 
     public static Result fail(String errorMsg) {
-        return new Result(false, errorMsg, null, null, null);
-    }
-
-    public static Result event(String eventMsg, Object data) {
-        return new Result(false, null, data, null, eventMsg);
-    }
-
-    public static Result event(String eventMsg) {
-        return new Result(false, null, null, null, eventMsg);
+        return new Result(false, errorMsg, null, null);
     }
 }

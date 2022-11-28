@@ -30,7 +30,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
 
     /**
      * 首页轮播图查询
-     * @return
+     * @return 轮播图 list
      */
     @Override
     public Result queryCarousel() {
@@ -39,7 +39,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
 
     /**
      * 首页甄选推荐查询
-     * @return
+     * @return 推荐 list
      */
     @Override
     public Result queryRecommend() {
@@ -48,7 +48,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
 
     /**
      * 首页专区选购查询
-     * @return
+     * @return 专区 list
      */
     @Override
     public Result queryArea() {
@@ -57,7 +57,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
 
     /**
      * 首页猜你喜欢查询
-     * @return
+     * @return 喜欢 list
      */
     @Override
     public Result queryLike() {

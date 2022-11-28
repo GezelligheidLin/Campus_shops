@@ -12,8 +12,8 @@
         <result property="price" column="price" jdbcType="FLOAT"/>
         <result property="evaluate" column="evaluate" jdbcType="VARCHAR"/>
         <result property="commodityType" column="commodity_type" jdbcType="VARCHAR"/>
-        <result property="userOtp" column="user_otp" jdbcType="INTEGER"/>
-        <result property="qoc" column="qoc" jdbcType="INTEGER"/>
+        <result property="userOtp" column="user_otp" jdbcType="BIGINT"/>
+        <result property="qoc" column="qoc" jdbcType="BIGINT"/>
         <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
     <select id="selectCarousel" resultType="com.taotao.entity.Commodity">
