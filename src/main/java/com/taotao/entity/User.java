@@ -83,7 +83,7 @@ public class User implements Serializable {
      * 用户头像url
      */
     @TableField(value = "profile_photo")
-    private String profilePhoto;
+    private String icon;
 
     /**
      * 创建时间

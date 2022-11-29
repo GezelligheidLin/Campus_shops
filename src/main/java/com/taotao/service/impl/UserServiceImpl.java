@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -39,6 +41,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+
+    @Resource
+    private UserMapper userMapper;
 
     /**
      * 发送短信验证码
@@ -66,9 +71,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     /**
      * 用户登录功能
-     * @param userLoginFormDTO
-     * @param session
-     * @return
+     * @param userLoginFormDTO 用户登录信息DTO
+     * @param session 会话控制
+     * @return  Result
      */
     @Override
     public Result login(UserLoginFormDTO userLoginFormDTO, HttpSession session) {
@@ -98,7 +103,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         String token = UUID.randomUUID().toString(true);
         // 5.2.将 User对象转为 HashMap存储
         UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
-        Map<String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap<>(),
+        Map<String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap<>(20),
                 CopyOptions.create()
                         .setIgnoreNullValue(true)
                         .setFieldValueEditor( (fieldName, fieldValue) -> fieldValue.toString() )
@@ -111,6 +116,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         stringRedisTemplate.expire(userTokenKey, userTokenTime, TimeUnit.SECONDS);
         // 6.返回 token
         return Result.success(token);
+    }
+
+    /**
+     * 查询商家热力榜的商家所属个人信息
+     * @return  Result
+     */
+    @Override
+    public List<User> queryHotRankOfUserInfo(List<Long> ids) {
+        List<User> userList = new ArrayList<>();
+        for (Long id : ids) {
+            userList.add(userMapper.selectHotRandOfUserInfo(id));
+        }
+        return userList;
     }
 
     private User createWithPhone(String phone) {

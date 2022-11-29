@@ -44,4 +44,5 @@ public class Merchant implements Serializable {
      */
     @TableLogic
     private Integer isDeleted;
+
 }

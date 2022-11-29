@@ -7,6 +7,7 @@ import com.taotao.dto.UserLoginFormDTO;
 import com.taotao.entity.User;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
 * @author YuLong
@@ -24,9 +25,16 @@ public interface UserService extends IService<User> {
 
     /**
      * 用户登录功能
-     * @param userLoginFormDTO
-     * @param session
-     * @return
+     * @param userLoginFormDTO 用户登录信息DTO
+     * @param session 会话控制
+     * @return  Result
      */
     Result login(UserLoginFormDTO userLoginFormDTO, HttpSession session);
+
+    /**
+     * 查询商家热力榜的商家所属个人信息
+     * @param ids id列表
+     * @return  Resul
+     */
+    List<User> queryHotRankOfUserInfo(List<Long> ids);
 }

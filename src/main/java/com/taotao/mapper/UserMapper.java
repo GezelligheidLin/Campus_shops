@@ -13,7 +13,12 @@ import org.apache.ibatis.annotations.Mapper;
 */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
-
+    /**
+     * 单次查找商家热力榜的商家所属个人信息
+     * @param id 商家id
+     * @return 商家所属个人信息
+     */
+    User selectHotRandOfUserInfo(Long id);
 }
 
 

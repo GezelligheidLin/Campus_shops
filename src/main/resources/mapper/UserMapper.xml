@@ -15,10 +15,16 @@
             <result property="attention" column="attention" jdbcType="VARCHAR"/>
             <result property="cardId" column="card_id" jdbcType="VARCHAR"/>
             <result property="realName" column="real_name" jdbcType="VARCHAR"/>
-            <result property="profilePhoto" column="profile_photo" jdbcType="VARCHAR"/>
+            <result property="icon" column="profile_photo" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="DATETIMEOFFSET"/>
             <result property="updateTime" column="update_time" jdbcType="DATETIMEOFFSET"/>
             <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
+    <select id="selectHotRankOfUserInfo" resultType="com.taotao.entity.User">
+
+    </select>
+    <select id="selectHotRandOfUserInfo" resultType="com.taotao.entity.User">
+        select * from user where user_id = #{id}
+    </select>
 
 </mapper>

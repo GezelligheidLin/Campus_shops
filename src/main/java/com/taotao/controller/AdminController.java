@@ -26,9 +26,9 @@ public class AdminController {
 
     /**
      * 发送短信验证码
-     * @param phone
-     * @param session
-     * @return
+     * @param phone 手机号码
+     * @param session 会话控制
+     * @return 通用返回结果
      */
     @PostMapping("/code")
     public Result sendCode(@RequestParam("phone") String phone, HttpSession session) {
@@ -37,8 +37,8 @@ public class AdminController {
 
     /**
      * 管理员登录
-     * @param adminLoginFormDTO
-     * @return
+     * @param adminLoginFormDTO 管理员登录DTO
+     * @return 通用返回结果
      */
     @PostMapping("/login")
     public Result adminLogin(@RequestBody AdminLoginFormDTO adminLoginFormDTO, HttpSession session) {
@@ -47,8 +47,8 @@ public class AdminController {
 
     /**
      * 管理员注册
-     * @param adminLoginFormDTO
-     * @return
+     * @param adminLoginFormDTO 管理员登录DTO
+     * @return 通用返回结果
      */
     @PostMapping("/register")
     public Result adminRegister(@RequestBody AdminLoginFormDTO adminLoginFormDTO) {
@@ -57,7 +57,7 @@ public class AdminController {
 
     /**
      * 管理员退出登录
-     * @return
+     * @return 通用返回结果
      */
     @PostMapping("/logout")
     public Result logout() {
@@ -65,9 +65,12 @@ public class AdminController {
         return Result.success();
     }
 
+    /**
+     * 获取当前登录的管理员信息
+     * @return 通用返回结果
+     */
     @GetMapping("/me")
     public Result me() {
-        // 获取当前登录的管理员信息并返回
         AdminDTO adminDTO = AdminHolder.getAdmin();
         return Result.success(adminDTO);
     }
