@@ -64,8 +64,8 @@ public class User implements Serializable {
     /**
      * 关注的店铺
      */
-    @TableField(value = "attention")
-    private String attention;
+    @TableField(value = "focus")
+    private String focus;
 
     /**
      * 用户身份证

@@ -24,8 +24,8 @@ public class ShoppingTrolley implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id")
-    private Long id;
+    @TableId(value = "trolley_id")
+    private Long trolleyId;
 
     /**
      * 用户账号
@@ -34,16 +34,22 @@ public class ShoppingTrolley implements Serializable {
     private Long userId;
 
     /**
-     * 商品简略信息
+     * 购物车中所有商品
      */
-    @TableField(value = "cif")
-    private String cif;
+    @TableField(value = "goods")
+    private String goods;
 
     /**
      * 加入购物车的商品数量
      */
-    @TableField(value = "count")
-    private Long count;
+    @TableField(value = "amount")
+    private Long amount;
+
+    /**
+     * 购物车商品总价格
+     */
+    @TableField(value = "total_price")
+    private Long totalPrice;
 
     /**
      * 逻辑删除

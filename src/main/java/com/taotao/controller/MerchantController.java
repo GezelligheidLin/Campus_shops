@@ -24,7 +24,7 @@ public class MerchantController {
     @GetMapping("/hotRank")
     public Result searchHotRank() {
         log.info("商家热力榜查询。。。");
-        return merchantService.queryHotRank();
+        return merchantService.queryListHotRandOfUserInfo();
     }
 
 }

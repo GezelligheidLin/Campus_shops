@@ -1,9 +1,9 @@
 package com.taotao.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.taotao.entity.ShopOrder;
-import com.taotao.mapper.ShopOrderMapper;
-import com.taotao.service.ShopOrderService;
+import com.taotao.entity.Order;
+import com.taotao.mapper.OrderMapper;
+import com.taotao.service.OrderService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 * @createDate 2022-11-21 14:07:49
 */
 @Service
-public class ShopOrderServiceImpl extends ServiceImpl<ShopOrderMapper, ShopOrder>
-    implements ShopOrderService {
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
+    implements OrderService {
 
 }
 

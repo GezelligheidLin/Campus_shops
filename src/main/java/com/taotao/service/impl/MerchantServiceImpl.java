@@ -40,13 +40,17 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant>
      * @return 热力榜 list
      */
     @Override
-    public Result queryHotRank() {
+    public Result queryListHotRandOfUserInfo() {
         // 1.查找商家信息
         List<Merchant> merchantList = merchantMapper.selectHotRank(RANK_SIZE);
         // 2.根据查询到的商家去获取 id列表
-        List<Long> ids = merchantList.stream().map(Merchant::getId).collect(Collectors.toList());
+        List<Long> ids = merchantList.stream().map(Merchant::getUserId).collect(Collectors.toList());
         // 3.根据 id查询该商家所属的用户信息 list
-        List<User> userList = userService.queryHotRankOfUserInfo(ids);
+        List<User> userList = new ArrayList<>();
+        // userList = userServiceImpl.queryListHotRankOfUserInfo(ids);
+        for (int i = 0; i < RANK_SIZE; i++) {
+            userList.add(userService.querySingleHotRankOfUserInfo(ids.get(i)));
+        }
         // 4.将 userList中信息 拷贝到 userDTOList中
         List<UserDTO> userDTOList = userList.stream().map( (item) ->
                 BeanUtil.copyProperties(item, UserDTO.class)

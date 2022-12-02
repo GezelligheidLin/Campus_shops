@@ -23,8 +23,8 @@ public class GoodsType implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id")
-    private Long id;
+    @TableId(value = "good_type_id")
+    private Long goodTypeId;
 
     /**
      * 商品类型

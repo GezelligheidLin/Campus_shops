@@ -11,4 +11,10 @@ import com.taotao.entity.ShoppingTrolley;
 */
 public interface ShoppingTrolleyService extends IService<ShoppingTrolley> {
 
+    /**
+     * 查询购物车
+     * @param id 用户账号
+     * @return 购物车信息
+     */
+    ShoppingTrolley queryTrolley(Long id);
 }

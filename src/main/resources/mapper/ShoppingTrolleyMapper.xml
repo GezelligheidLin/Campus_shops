@@ -4,12 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.taotao.mapper.ShoppingTrolleyMapper">
 
-    <resultMap id="BaseResultMap" type="com.taotao.entity.ShoppingTrolley">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="userId" column="user_id" jdbcType="BIGINT"/>
-            <result property="cif" column="cif" jdbcType="VARCHAR"/>
-            <result property="count" column="count" jdbcType="BIGINT"/>
-        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
-    </resultMap>
+    <select id="selectTrolley" resultType="com.taotao.entity.ShoppingTrolley">
+        select * from shopping_trolley where user_id = #{id}
+    </select>
 
 </mapper>

@@ -16,33 +16,32 @@ import java.util.List;
 public interface CommodityMapper extends BaseMapper<Commodity> {
 
     /**
-     * 查询轮播图
+     * 查找轮播图
      * @param carouselSize 轮播图数量
      * @return 返回轮播图 list
      */
     List<Commodity> selectCarousel(int carouselSize);
 
     /**
-     * 查询甄选推荐
+     * 查找甄选推荐
      * @param recommendSize 推荐淘品数量
      * @return 返回推荐淘品 list
      */
     List<Commodity> selectRecommend(int recommendSize);
 
     /**
-     * 查询专区选购
+     * 查找专区选购
      * @param areaSize 专区数量
      * @return 返回专区 list
      */
     List<Commodity> selectArea(int areaSize);
 
     /**
-     * 查询猜你喜欢
+     * 查找猜你喜欢
      * @param likeSize 喜欢淘品数量
      * @return 返回喜欢淘品 list
      */
     List<Commodity> selectLike(int likeSize);
-
 }
 
 

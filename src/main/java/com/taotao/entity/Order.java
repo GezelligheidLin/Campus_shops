@@ -14,9 +14,9 @@ import java.io.Serializable;
  * @createDate 2022-11-21 14:06:42
  * @TableName shop_order
  */
-@TableName(value ="shop_order")
+@TableName(value ="order")
 @Data
-public class ShopOrder implements Serializable {
+public class Order implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -24,8 +24,8 @@ public class ShopOrder implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id")
-    private Long id;
+    @TableId(value = "order_id")
+    private Long orderId;
 
     /**
      * 用户账号

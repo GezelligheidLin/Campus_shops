@@ -24,8 +24,14 @@ public class Merchant implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id")
-    private Long id;
+    @TableId(value = "merchant_id")
+    private Long merchantId;
+
+    /**
+     * 用户账号
+     */
+    @TableField(value = "user_id")
+    private Long userId;
 
     /**
      * 粉丝

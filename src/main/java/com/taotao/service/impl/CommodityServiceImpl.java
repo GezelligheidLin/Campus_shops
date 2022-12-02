@@ -2,13 +2,13 @@ package com.taotao.service.impl;
 
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.taotao.dto.Result;
 import com.taotao.entity.Commodity;
 import com.taotao.mapper.CommodityMapper;
 import com.taotao.service.CommodityService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * @author YuLong
@@ -33,8 +33,8 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
      * @return 轮播图 list
      */
     @Override
-    public Result queryCarousel() {
-        return Result.success(commodityMapper.selectCarousel(CAROUSEL_SIZE));
+    public List<Commodity> queryCarousel() {
+        return commodityMapper.selectCarousel(CAROUSEL_SIZE);
     }
 
     /**
@@ -42,8 +42,8 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
      * @return 推荐 list
      */
     @Override
-    public Result queryRecommend() {
-        return Result.success(commodityMapper.selectRecommend(RECOMMEND_SIZE));
+    public List<Commodity> queryRecommend() {
+        return commodityMapper.selectRecommend(RECOMMEND_SIZE);
     }
 
     /**
@@ -51,8 +51,8 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
      * @return 专区 list
      */
     @Override
-    public Result queryArea() {
-        return Result.success(commodityMapper.selectArea(AREA_SIZE));
+    public List<Commodity> queryArea() {
+        return commodityMapper.selectArea(AREA_SIZE);
     }
 
     /**
@@ -60,10 +60,9 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
      * @return 喜欢 list
      */
     @Override
-    public Result queryLike() {
-        return Result.success(commodityMapper.selectLike(LIKE_SIZE));
+    public List<Commodity> queryLike() {
+        return commodityMapper.selectLike(LIKE_SIZE);
     }
-
 
 }
 

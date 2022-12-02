@@ -4,18 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.taotao.mapper.CommodityMapper">
 
-    <resultMap id="BaseResultMap" type="com.taotao.entity.Commodity">
-        <id property="id" column="id" jdbcType="BIGINT"/>
-        <result property="commodityName" column="commodity_name" jdbcType="VARCHAR"/>
-        <result property="listAsp" column="list_asp" jdbcType="VARCHAR"/>
-        <result property="cif" column="cif" jdbcType="VARCHAR"/>
-        <result property="price" column="price" jdbcType="FLOAT"/>
-        <result property="evaluate" column="evaluate" jdbcType="VARCHAR"/>
-        <result property="commodityType" column="commodity_type" jdbcType="VARCHAR"/>
-        <result property="userOtp" column="user_otp" jdbcType="BIGINT"/>
-        <result property="qoc" column="qoc" jdbcType="BIGINT"/>
-        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
-    </resultMap>
     <select id="selectCarousel" resultType="com.taotao.entity.Commodity">
         SELECT * FROM commodity ORDER BY RAND() LIMIT #{carouselSize};
     </select>

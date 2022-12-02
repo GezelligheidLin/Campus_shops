@@ -14,7 +14,7 @@ public class CampusShopsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CampusShopsApplication.class, args);
-        log.info("淘了淘个商城项目启动成功");
+        log.info("淘了个淘商城项目启动成功");
     }
     
 }

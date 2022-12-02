@@ -14,6 +14,12 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ShoppingTrolleyMapper extends BaseMapper<ShoppingTrolley> {
 
+    /**
+     * 查找购物车信息
+     * @param userId 用户账号
+     * @return 购物车信息
+     */
+    ShoppingTrolley selectTrolley(Long userId);
 }
 
 

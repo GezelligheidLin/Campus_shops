@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.taotao.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
 * @author YuLong
 * @description 针对表【user(用户表)】的数据库操作Mapper
@@ -18,7 +20,15 @@ public interface UserMapper extends BaseMapper<User> {
      * @param id 商家id
      * @return 商家所属个人信息
      */
-    User selectHotRandOfUserInfo(Long id);
+    User selectSingleHotRandOfUserInfo(Long id);
+
+
+    /**
+     * 单次查找商家热力榜的商家所属个人信息
+     * @param ids id list
+     * @return 商家所属个人信息
+     */
+    List<User> selectListHotRandOfUserInfo(List<String> ids);
 }
 
 

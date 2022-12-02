@@ -119,16 +119,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     /**
-     * 查询商家热力榜的商家所属个人信息
+     * 查询商家热力榜的单个商家所属个人信息
+     * @param id 商家id
      * @return  Result
      */
     @Override
-    public List<User> queryHotRankOfUserInfo(List<Long> ids) {
-        List<User> userList = new ArrayList<>();
-        for (Long id : ids) {
-            userList.add(userMapper.selectHotRandOfUserInfo(id));
-        }
-        return userList;
+    public User querySingleHotRankOfUserInfo(Long id) {
+        return userMapper.selectSingleHotRandOfUserInfo(id);
+    }
+
+    /**
+     * 查询商家热力榜的所有商家所属个人信息
+     * @param ids id列表
+     * @return  Result
+     */
+    @Override
+    public List<User> queryListHotRankOfUserInfo(List<Long> ids) {
+        List<String> str = new ArrayList<>();
+        ids.forEach( (item) -> str.add(String.valueOf(item)));
+        return userMapper.selectListHotRandOfUserInfo(str);
     }
 
     private User createWithPhone(String phone) {

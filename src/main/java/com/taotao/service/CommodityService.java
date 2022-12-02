@@ -2,8 +2,9 @@ package com.taotao.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.taotao.dto.Result;
 import com.taotao.entity.Commodity;
+
+import java.util.List;
 
 /**
 * @author YuLong
@@ -14,25 +15,26 @@ public interface CommodityService extends IService<Commodity> {
 
     /**
      * 首页轮播图查询
-     * @return
+     * @return 商品 list
      */
-    Result queryCarousel();
+    List<Commodity> queryCarousel();
 
     /**
      * 首页甄选推荐查询
-     * @return
+     * @return 商品 list
      */
-    Result queryRecommend();
+    List<Commodity> queryRecommend();
 
     /**
      * 首页专区选购查询
-     * @return
+     * @return 商品 list
      */
-    Result queryArea();
+    List<Commodity> queryArea();
+
     /**
      * 首页猜你喜欢查询
-     * @return
+     * @return 商品 list
      */
-    Result queryLike();
+    List<Commodity> queryLike();
 
 }

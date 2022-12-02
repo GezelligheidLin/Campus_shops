@@ -24,8 +24,8 @@ public class Commodity implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id")
-    private Long id;
+    @TableId(value = "commodity_id")
+    private Long commodityId;
 
     /**
      * 商品名
@@ -34,22 +34,28 @@ public class Commodity implements Serializable {
     private String commodityName;
 
     /**
-     * 商品详情
+     * 商品图片
      */
-    @TableField(value = "list_asp")
-    private String listAsp;
+    @TableField(value = "image")
+    private String image;
 
     /**
-     * 商品简略信息
+     * 商品简略描述
      */
-    @TableField(value = "cif")
-    private String cif;
+    @TableField(value = "description")
+    private String description;
+
+    /**
+     * 商品详情
+     */
+    @TableField(value = "detail")
+    private String detail;
 
     /**
      * 价格
      */
     @TableField(value = "price")
-    private Double price;
+    private Long price;
 
     /**
      * 评价
@@ -66,14 +72,14 @@ public class Commodity implements Serializable {
     /**
      * 商品所属用户账号
      */
-    @TableField(value = "user_otp")
-    private Long userOtp;
+    @TableField(value = "user_id")
+    private Long userId;
 
     /**
      * 商品数量
      */
-    @TableField(value = "qoc")
-    private Long qoc;
+    @TableField(value = "quantity")
+    private Long quantity;
 
     /**
      * 逻辑删除
