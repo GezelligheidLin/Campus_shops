@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
  * Date: 2022/11/21 14:20
  */
 @Slf4j
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("/home")
 public class CommodityController {
 
@@ -54,6 +54,13 @@ public class CommodityController {
         log.info("首页淘品猜你喜欢查询。。。");
         List<Commodity> commodityList = commodityService.queryLike();
         return Result.success(entityConvertToVO(commodityList));
+    }
+
+    @GetMapping("/seek")
+    public Result searchCommodityKeyword(String key) {
+        log.info("首页商品搜索查询。。。");
+        List<Commodity> commodityList = commodityService.queryKeyword(key);
+        return Result.success(commodityList);
     }
 
     private List<CommodityVO> entityConvertToVO(List<Commodity> list) {

@@ -33,7 +33,7 @@ public class MvcConfig implements WebMvcConfigurer {
                         // 待添加
                         "/**/**"
                         // "/upload/**",
-                        // "/user/**",
+                        // "/user/**"
                         // "/admin/**",
                         // "/home/**",
                         // "/goodsType/**",

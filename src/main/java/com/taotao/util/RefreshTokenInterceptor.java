@@ -9,7 +9,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.taotao.util.RedisConstants.LOGIN_USER_KEY;
@@ -31,7 +30,7 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         // 1.获取请求头中的 token
         String token = request.getHeader(AUTHORIZATION);
         log.info("请求头中的token = {}", token);
@@ -41,16 +40,15 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
 
         // 2.基于 token获取 redis中的用户
         String key = LOGIN_USER_KEY + token;
-        Map<Object, Object> userMap = stringRedisTemplate.opsForHash()
-                .entries(key);
+        String userJson = stringRedisTemplate.opsForValue().get(key);
 
-        // 3.判断用户是否存在，entries方法会进行判断，若取到的值为 null，则返回 空map
-        if (userMap.isEmpty()) {
+        // 3.判断用户是否存在，若取到的值为 null，则返回
+        if (userJson == null || userJson.isEmpty()) {
             return true;
         }
 
-        // 4.将查询到的 Hash数据转为 UserDTO对象
-        UserDTO userDTO = BeanUtil.fillBeanWithMap(userMap, new UserDTO(), false);
+        // 4.将查询到的 json数据转为 UserDTO对象
+        UserDTO userDTO = BeanUtil.toBean(userJson, UserDTO.class);
 
         // 5.存在，保存用户信息到 ThreadLocal
         UserHolder.saveUser(userDTO);
@@ -63,7 +61,7 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) {
         // 移除用户
         UserHolder.removeUser();
     }

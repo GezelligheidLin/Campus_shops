@@ -4,17 +4,4 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.taotao.mapper.AdminMapper">
 
-    <resultMap id="BaseResultMap" type="com.taotao.entity.Admin">
-            <id property="adminId" column="admin_id" jdbcType="BIGINT"/>
-            <result property="phone" column="phone" jdbcType="CHAR"/>
-            <result property="password" column="password" jdbcType="CHAR"/>
-            <result property="realName" column="real_name" jdbcType="VARCHAR"/>
-            <result property="sex" column="sex" jdbcType="CHAR"/>
-            <result property="status" column="status" jdbcType="INTEGER"/>
-            <result property="isRoot" column="is_root" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="DATETIMEOFFSET"/>
-            <result property="updateTime" column="update_time" jdbcType="DATETIMEOFFSET"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
-    </resultMap>
-
 </mapper>

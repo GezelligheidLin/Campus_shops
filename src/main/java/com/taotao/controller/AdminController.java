@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
  * Date: 2022/11/21 14:09
  */
 @Slf4j
+@CrossOrigin
 @RestController
 @RequestMapping("/admin")
 public class AdminController {

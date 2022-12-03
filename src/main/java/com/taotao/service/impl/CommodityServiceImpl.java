@@ -64,6 +64,16 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         return commodityMapper.selectLike(LIKE_SIZE);
     }
 
+    /**
+     * 根据关键字搜索查询
+     * @param key 关键字
+     * @return 商品 list
+     */
+    @Override
+    public List<Commodity> queryKeyword(String key) {
+        return commodityMapper.selectKeyword(key);
+    }
+
 }
 
 

@@ -37,4 +37,10 @@ public interface CommodityService extends IService<Commodity> {
      */
     List<Commodity> queryLike();
 
+    /**
+     * 根据关键字搜索查询
+     * @param key 关键字
+     * @return 商品 list
+     */
+    List<Commodity> queryKeyword(String key);
 }

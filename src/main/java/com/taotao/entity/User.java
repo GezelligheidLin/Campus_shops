@@ -46,7 +46,7 @@ public class User implements Serializable {
     /**
      * 用户昵称
      */
-    @TableField(value = "username")
+    @TableField(value = "nick_name")
     private String nickName;
 
     /**
@@ -82,7 +82,7 @@ public class User implements Serializable {
     /**
      * 用户头像url
      */
-    @TableField(value = "profile_photo")
+    @TableField(value = "icon")
     private String icon;
 
     /**

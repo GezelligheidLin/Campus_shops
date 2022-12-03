@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
  * Date: 2022/11/21 14:09
  */
 @Slf4j
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -25,28 +26,31 @@ public class UserController {
 
     /**
      * 发送短信验证码
-     * @param phone
-     * @return
+     * @param phone 手机号码
+     * @return success
      */
-    @PostMapping("code")
-    public Result sendCode(@RequestParam("phone") String phone) {
+    @GetMapping("/code/{phone}")
+    public Result sendCode(@PathVariable("phone") String phone) {
+        log.info("phone = {}", phone);
         return userService.sendCode(phone);
     }
 
     /**
      * 用户登录功能
-     * @param userLoginFormDTO
-     * @param session
-     * @return
+     * @param userLoginFormDTO 用户登录DTO
+     * @param session 会和控制
+     * @return 用户DTO信息 和 session
      */
     @PostMapping("/login")
-    public Result userLogin(@RequestParam UserLoginFormDTO userLoginFormDTO, HttpSession session) {
+    public Result userLogin(@RequestBody UserLoginFormDTO userLoginFormDTO, HttpSession session) {
+        log.info("session = {}", session);
+        log.info("user = {}", userLoginFormDTO);
         return userService.login(userLoginFormDTO, session);
     }
 
     /**
      * 用户登出
-     * @return
+     * @return success
      */
     @PostMapping("/logout")
     public Result userLogout() {
@@ -59,7 +63,6 @@ public class UserController {
         // 获取当前登录的用户并返回
         UserDTO userDTO = UserHolder.getUser();
         return Result.success(userDTO);
-
     }
 
     @GetMapping("/info/{id}")

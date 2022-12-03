@@ -8,6 +8,7 @@ import com.taotao.entity.ShoppingTrolley;
 import com.taotao.service.ShoppingTrolleyService;
 import com.taotao.vo.ShoppingTrolleyVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
  * Date: 2022/11/21 14:15
  */
 @Slf4j
+@CrossOrigin
 @RestController
 @RequestMapping("/trolley")
 public class ShoppingTrolleyController {

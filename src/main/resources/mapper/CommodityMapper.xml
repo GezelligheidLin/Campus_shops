@@ -19,4 +19,11 @@
     <select id="selectLike" resultType="com.taotao.entity.Commodity">
         SELECT * FROM commodity ORDER BY RAND() LIMIT #{likeSize};
     </select>
+
+    <select id="selectKeyword" resultType="com.taotao.entity.Commodity">
+        SELECT * FROM commodity where
+            <if test="commodity != null">
+                commodity_name like "%"#{key}"%";
+            </if>
+    </select>
 </mapper>

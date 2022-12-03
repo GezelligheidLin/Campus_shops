@@ -42,6 +42,13 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
      * @return 返回喜欢淘品 list
      */
     List<Commodity> selectLike(int likeSize);
+
+    /**
+     * 查找根据关键字搜索
+     * @param key 关键字
+     * @return 商品 list
+     */
+    List<Commodity> selectKeyword(String key);
 }
 
 

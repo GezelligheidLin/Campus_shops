@@ -1,7 +1,6 @@
 package com.taotao.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
@@ -20,9 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.taotao.util.RedisConstants.*;
@@ -103,17 +100,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         String token = UUID.randomUUID().toString(true);
         // 5.2.将 User对象转为 HashMap存储
         UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
-        Map<String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap<>(20),
-                CopyOptions.create()
-                        .setIgnoreNullValue(true)
-                        .setFieldValueEditor( (fieldName, fieldValue) -> fieldValue.toString() )
-        );
+        String userJson = JSONUtil.toJsonStr(userDTO);
         // 5.3.存储
         String userTokenKey = LOGIN_USER_KEY + token;
-        stringRedisTemplate.opsForHash().putAll(userTokenKey, userMap);
+        stringRedisTemplate.opsForValue().set(userTokenKey, userJson);
         // 5.4.设置 token有效期
         long userTokenTime = LOGIN_USER_TTL + RandomUtil.randomLong(LOGIN_USER_TTL) / 2;
         stringRedisTemplate.expire(userTokenKey, userTokenTime, TimeUnit.SECONDS);
+        log.info("用户登录成功");
         // 6.返回 token
         return Result.success(token);
     }
