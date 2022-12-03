@@ -4,13 +4,13 @@ package com.taotao.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.taotao.dto.Result;
-import com.taotao.dto.UserDTO;
 import com.taotao.entity.Merchant;
 import com.taotao.entity.User;
 import com.taotao.mapper.MerchantMapper;
 import com.taotao.service.MerchantService;
 import com.taotao.service.UserService;
 import com.taotao.vo.MerchantVO;
+import com.taotao.vo.UserVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -52,15 +52,15 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant>
             userList.add(userService.querySingleHotRankOfUserInfo(ids.get(i)));
         }
         // 4.将 userList中信息 拷贝到 userDTOList中
-        List<UserDTO> userDTOList = userList.stream().map( (item) ->
-                BeanUtil.copyProperties(item, UserDTO.class)
+        List<UserVO> userVOList = userList.stream().map( (item) ->
+                BeanUtil.copyProperties(item, UserVO.class)
         ).collect(Collectors.toList());
         // 5.将 userDTOList和 merchantList 分别拷贝给 merchant
         List<MerchantVO> merchantVOList = new ArrayList<>();
-        int size = userDTOList.size();
+        int size = userVOList.size();
         for(int i = 0; i < size; i++){
             MerchantVO merchantVO = new MerchantVO();
-            BeanUtil.copyProperties(userDTOList.get(i), merchantVO, true);
+            BeanUtil.copyProperties(userVOList.get(i), merchantVO, true);
             BeanUtil.copyProperties(merchantList.get(i), merchantVO, true);
             merchantVOList.add(merchantVO);
         }

@@ -29,6 +29,12 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 商家所属个人信息
      */
     List<User> selectListHotRandOfUserInfo(List<String> ids);
+
+    /**
+     * 更新用户个人信息
+     * @param user 用户信息
+     */
+    void updateUser(User user);
 }
 
 

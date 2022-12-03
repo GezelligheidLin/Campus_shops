@@ -44,4 +44,10 @@ public interface UserService extends IService<User> {
      * @return  Result
      */
     List<User> queryListHotRankOfUserInfo(List<Long> merchantIds);
+
+    /**
+     * 更新用户个人信息
+     * @param user 用户信息
+     */
+    void updateUserInfo(User user);
 }

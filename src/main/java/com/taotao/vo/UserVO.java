@@ -1,13 +1,13 @@
-package com.taotao.dto;
+package com.taotao.vo;
 
 import lombok.Data;
 
 /**
  * @author YuLong
- * Date: 2022/11/21 16:07
+ * Date: 2022/12/3 14:32
  */
 @Data
-public class UserDTO {
+public class UserVO {
     private Long userId;
     private String nickName;
     private String icon;

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 用户表
@@ -26,28 +27,10 @@ public class User implements Serializable {
     private Long userId;
 
     /**
-     * 密码，加密存储
+     * 用户身份证
      */
-    @TableField(value = "password")
-    private String password;
-
-    /**
-     * 性别
-     */
-    @TableField(value = "sex")
-    private String sex;
-
-    /**
-     * 生日
-     */
-    @TableField(value = "birthday")
-    private LocalDateTime birthday;
-
-    /**
-     * 用户昵称
-     */
-    @TableField(value = "nick_name")
-    private String nickName;
+    @TableField(value = "card_id")
+    private String cardId;
 
     /**
      * 用户手机号
@@ -56,22 +39,10 @@ public class User implements Serializable {
     private String phone;
 
     /**
-     * 用户地址
+     * 密码，加密存储
      */
-    @TableField(value = "address")
-    private String address;
-
-    /**
-     * 关注的店铺
-     */
-    @TableField(value = "focus")
-    private String focus;
-
-    /**
-     * 用户身份证
-     */
-    @TableField(value = "card_id")
-    private String cardId;
+    @TableField(value = "password")
+    private String password;
 
     /**
      * 用户真实姓名
@@ -80,10 +51,46 @@ public class User implements Serializable {
     private String realName;
 
     /**
+     * 性别
+     */
+    @TableField(value = "sex")
+    private String sex;
+
+    /**
+     * 关注的店铺
+     */
+    @TableField(value = "focus")
+    private String focus;
+
+    /**
+     * 用户地址
+     */
+    @TableField(value = "address")
+    private String address;
+
+    /**
+     * 生日
+     */
+    @TableField(value = "birthday")
+    private Date birthday;
+
+    /**
+     * 用户昵称
+     */
+    @TableField(value = "nick_name")
+    private String nickName;
+
+    /**
      * 用户头像url
      */
     @TableField(value = "icon")
     private String icon;
+
+    /**
+     *
+     */
+    @TableField(value = "is_merchant")
+    private Integer isMerchant;
 
     /**
      * 创建时间

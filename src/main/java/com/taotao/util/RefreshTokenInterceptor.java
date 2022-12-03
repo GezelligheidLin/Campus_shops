@@ -1,8 +1,8 @@
 package com.taotao.util;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
-import com.taotao.dto.UserDTO;
+import cn.hutool.json.JSONUtil;
+import com.taotao.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -47,11 +47,11 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        // 4.将查询到的 json数据转为 UserDTO对象
-        UserDTO userDTO = BeanUtil.toBean(userJson, UserDTO.class);
+        // 4.将查询到的 json数据转为 UserVO对象
+        UserVO userVO = JSONUtil.toBean(userJson, UserVO.class);
 
         // 5.存在，保存用户信息到 ThreadLocal
-        UserHolder.saveUser(userDTO);
+        UserHolder.saveUser(userVO);
 
         // 6.刷新 token有效期
         stringRedisTemplate.expire(key, LOGIN_USER_TTL, TimeUnit.MINUTES);

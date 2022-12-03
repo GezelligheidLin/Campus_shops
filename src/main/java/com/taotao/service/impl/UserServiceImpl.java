@@ -6,12 +6,12 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.taotao.dto.Result;
-import com.taotao.dto.UserDTO;
 import com.taotao.dto.UserLoginFormDTO;
 import com.taotao.entity.User;
 import com.taotao.mapper.UserMapper;
 import com.taotao.service.UserService;
 import com.taotao.util.RegexUtils;
+import com.taotao.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -99,8 +99,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         // 5.1.随机生成 token，作为登录令牌
         String token = UUID.randomUUID().toString(true);
         // 5.2.将 User对象转为 HashMap存储
-        UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
-        String userJson = JSONUtil.toJsonStr(userDTO);
+        UserVO userVO = BeanUtil.copyProperties(user, UserVO.class);
+        String userJson = JSONUtil.toJsonStr(userVO);
         // 5.3.存储
         String userTokenKey = LOGIN_USER_KEY + token;
         stringRedisTemplate.opsForValue().set(userTokenKey, userJson);
@@ -132,6 +132,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         List<String> str = new ArrayList<>();
         ids.forEach( (item) -> str.add(String.valueOf(item)));
         return userMapper.selectListHotRandOfUserInfo(str);
+    }
+
+    /**
+     * 更新用户个人信息
+     * @param user 用户信息
+     */
+    @Override
+    public void updateUserInfo(User user) {
+        userMapper.updateUser(user);
     }
 
     private User createWithPhone(String phone) {
