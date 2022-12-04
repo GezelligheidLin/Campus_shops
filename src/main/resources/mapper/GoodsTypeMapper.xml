@@ -5,6 +5,6 @@
 <mapper namespace="com.taotao.mapper.GoodsTypeMapper">
 
     <select id="selectClassify" resultType="com.taotao.entity.GoodsType">
-        SELECT * FROM goods_type LIMIT #{classifyNum};
+        SELECT type, url FROM goods_type LIMIT #{classifySize};
     </select>
 </mapper>

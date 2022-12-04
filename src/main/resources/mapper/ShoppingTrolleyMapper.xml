@@ -5,7 +5,7 @@
 <mapper namespace="com.taotao.mapper.ShoppingTrolleyMapper">
 
     <select id="selectTrolley" resultType="com.taotao.entity.ShoppingTrolley">
-        select * from shopping_trolley where user_id = #{id}
+        select goods, amount, total_price  from shopping_trolley where user_id = #{id};
     </select>
 
 </mapper>

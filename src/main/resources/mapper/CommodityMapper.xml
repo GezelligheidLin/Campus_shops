@@ -5,25 +5,35 @@
 <mapper namespace="com.taotao.mapper.CommodityMapper">
 
     <select id="selectCarousel" resultType="com.taotao.entity.Commodity">
-        SELECT * FROM commodity ORDER BY RAND() LIMIT #{carouselSize};
+        SELECT commodity_id, commodity_name, image, description, detail,
+               price, evaluate, commodity_type, merchant_id, quantity
+        FROM commodity ORDER BY RAND() LIMIT #{carouselSize};
     </select>
 
     <select id="selectRecommend" resultType="com.taotao.entity.Commodity">
-        SELECT * FROM commodity ORDER BY RAND() LIMIT #{recommendSize};
+        SELECT commodity_id, commodity_name, image, description, detail,
+               price, evaluate, commodity_type, merchant_id, quantity
+        FROM commodity ORDER BY RAND() LIMIT #{recommendSize};
     </select>
 
     <select id="selectArea" resultType="com.taotao.entity.Commodity">
-        SELECT * FROM commodity ORDER BY RAND() LIMIT #{areaSize};
+        SELECT commodity_id, commodity_name, image, description, detail,
+               price, evaluate, commodity_type, merchant_id, quantity
+        FROM commodity ORDER BY RAND() LIMIT #{areaSize};
     </select>
 
     <select id="selectLike" resultType="com.taotao.entity.Commodity">
-        SELECT * FROM commodity ORDER BY RAND() LIMIT #{likeSize};
+        SELECT commodity_id, commodity_name, image, description, detail,
+               price, evaluate, commodity_type, merchant_id, quantity
+        FROM commodity ORDER BY RAND() LIMIT #{likeSize};
     </select>
 
     <select id="selectKeyword" resultType="com.taotao.entity.Commodity">
-        SELECT * FROM commodity where
-            <if test="commodity != null">
-                commodity_name like "%"#{key}"%";
-            </if>
+        SELECT commodity_id, commodity_name, image, description, detail,
+               price, evaluate, commodity_type, merchant_id, quantity
+        FROM commodity where
+        <if test="#{key} != null and #{key} != ''">
+            commodity_name like "%"#{key}"%";
+        </if>
     </select>
 </mapper>

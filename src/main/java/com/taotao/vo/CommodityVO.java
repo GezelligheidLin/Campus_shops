@@ -16,6 +16,6 @@ public class CommodityVO {
     private Long price;
     private String evaluate;
     private String commodityType;
-    private Long userId;
+    private Long merchantId;
     private Long quantity;
 }

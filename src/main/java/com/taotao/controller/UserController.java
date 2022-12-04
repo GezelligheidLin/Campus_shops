@@ -78,10 +78,10 @@ public class UserController {
             // 没有详情，应该是第一次查看详情
             return Result.success();
         }
-        info.setCreateTime(null);
-        info.setUpdateTime(null);
+        // 仅展示必要信息
+        UserInfoDTO userinfoDTO = BeanUtil.copyProperties(info, UserInfoDTO.class);
         // 返回
-        return Result.success(info);
+        return Result.success(userinfoDTO);
     }
 
     private static final String ID_VERIFY_MESSAGE = "该身份证有效！";

@@ -23,7 +23,7 @@ public class GoodsTypeServiceImpl extends ServiceImpl<GoodsTypeMapper, GoodsType
     @Resource
     private GoodsTypeMapper goodsTypeMapper;
 
-    private static final int GOODS_TYPE_NUM = 10;
+    private static final int GOODS_TYPE_SIZE = 10;
 
     /**
      * 查询淘品分类
@@ -31,7 +31,7 @@ public class GoodsTypeServiceImpl extends ServiceImpl<GoodsTypeMapper, GoodsType
      */
     @Override
     public Result queryGoodsClassify() {
-        return Result.success(goodsTypeMapper.selectClassify(GOODS_TYPE_NUM));
+        return Result.success(goodsTypeMapper.selectClassify(GOODS_TYPE_SIZE));
     }
 }
 

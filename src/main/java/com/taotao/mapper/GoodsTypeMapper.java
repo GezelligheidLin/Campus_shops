@@ -17,10 +17,10 @@ public interface GoodsTypeMapper extends BaseMapper<GoodsType> {
 
     /**
      * 查询淘品分类
-     * @param num 分类数量
+     * @param size 分类数量
      * @return 分类列表
      */
-    List<GoodsType> selectClassify(int num);
+    List<GoodsType> selectClassify(int size);
 }
 
 

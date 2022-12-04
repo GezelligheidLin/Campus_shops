@@ -22,7 +22,7 @@ public class RegexUtils {
      * @param email 要校验的邮箱
      * @return true:符合，false：不符合
      */
-    public static boolean isEmailInvaild(String email) {
+    public static boolean isEmailInvalid(String email) {
         return mismatch(email, RegexPatterns.EMAIL_REGEX);
     }
 
@@ -35,7 +35,12 @@ public class RegexUtils {
         return mismatch(code, RegexPatterns.VERIFY_CODE_REGEX);
     }
 
-    // 校验是否不符合正则格式
+    /**
+     * 校验是否不符合正则格式
+     * @param str 待检验字符串
+     * @param regex 正则匹配
+     * @return true:符合，false：不符合
+     */
     private static boolean mismatch(String str, String regex) {
         if (StrUtil.isBlank(str)) {
             return true;
