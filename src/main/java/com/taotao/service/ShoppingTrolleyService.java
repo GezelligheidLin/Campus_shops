@@ -17,4 +17,10 @@ public interface ShoppingTrolleyService extends IService<ShoppingTrolley> {
      * @return 购物车信息
      */
     ShoppingTrolley queryTrolley(Long id);
+
+    /**
+     * 更新购物车
+     * @param trolley 购物车
+     */
+    void modifyTrolley(ShoppingTrolley trolley);
 }

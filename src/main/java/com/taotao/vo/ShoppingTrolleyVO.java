@@ -11,7 +11,6 @@ import lombok.Data;
 public class ShoppingTrolleyVO {
     private Long trolleyId;
     private Long userId;
-    private String description;
     private Long amount;
     private Long totalPrice;
     private JSON goods;

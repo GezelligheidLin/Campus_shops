@@ -23,15 +23,25 @@ public class GoodsTypeServiceImpl extends ServiceImpl<GoodsTypeMapper, GoodsType
     @Resource
     private GoodsTypeMapper goodsTypeMapper;
 
-    private static final int GOODS_TYPE_SIZE = 10;
+    private static final int ICON_SIZE = 10;
 
     /**
-     * 查询淘品分类
-     * @return 分类列表
+     * 查询全部分类图标
+     * @return 分类图标 list
      */
     @Override
-    public Result queryGoodsClassify() {
-        return Result.success(goodsTypeMapper.selectClassify(GOODS_TYPE_SIZE));
+    public Result queryAllIcon() {
+        return Result.success(goodsTypeMapper.selectAllIcon(ICON_SIZE));
+    }
+
+    /**
+     * 查询分类淘品
+     * @param type 分类
+     * @return 分类淘品 list
+     */
+    @Override
+    public Result queryClassifyGoods(String type) {
+        return Result.success(goodsTypeMapper.selectClassifyGoods(type));
     }
 }
 

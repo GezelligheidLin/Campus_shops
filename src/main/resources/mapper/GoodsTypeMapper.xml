@@ -4,7 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.taotao.mapper.GoodsTypeMapper">
 
-    <select id="selectClassify" resultType="com.taotao.entity.GoodsType">
-        SELECT type, url FROM goods_type LIMIT #{classifySize};
+    <select id="selectAllIcon" resultType="com.taotao.entity.GoodsType">
+        SELECT type, url FROM goods_type LIMIT #{iconSize};
+    </select>
+    <select id="selectClassifyGoods" resultType="com.taotao.entity.Commodity">
+        SELECT commodity_id, commodity_name, image, description, detail,
+               price, evaluate, commodity_type, merchant_id, quantity
+        FROM commodity where commodity_type = #{type}
     </select>
 </mapper>

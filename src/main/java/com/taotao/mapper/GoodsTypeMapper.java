@@ -1,6 +1,7 @@
 package com.taotao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.taotao.entity.Commodity;
 import com.taotao.entity.GoodsType;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,11 +17,18 @@ import java.util.List;
 public interface GoodsTypeMapper extends BaseMapper<GoodsType> {
 
     /**
-     * 查询淘品分类
-     * @param size 分类数量
+     * 查询全部分类图标
+     * @param iconSize 分类图标数量
      * @return 分类列表
      */
-    List<GoodsType> selectClassify(int size);
+    List<GoodsType> selectAllIcon(int iconSize);
+
+    /**
+     * 查询分类淘品
+     * @param type 分类
+     * @return 分类淘品 list
+     */
+    List<Commodity> selectClassifyGoods(String type);
 }
 
 

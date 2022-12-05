@@ -12,8 +12,15 @@ import com.taotao.entity.GoodsType;
 public interface GoodsTypeService extends IService<GoodsType> {
 
     /**
-     * 查询淘品分类
-     * @return
+     * 查询全部分类图标
+     * @return 分类图标 list
      */
-    Result queryGoodsClassify();
+    Result queryAllIcon();
+
+    /**
+     * 查询分类淘品
+     * @param type 分类
+     * @return 分类淘品 list
+     */
+    Result queryClassifyGoods(String type);
 }

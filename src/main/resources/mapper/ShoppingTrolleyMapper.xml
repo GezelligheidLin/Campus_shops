@@ -3,9 +3,26 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.taotao.mapper.ShoppingTrolleyMapper">
+    <!-- 更新模块 -->
+    <update id="updateTrolley">
+        UPDATE shopping_trolley
+        <set>
+            <if test="goods != null and goods != ''">
+                goods = #{goods},
+            </if>
+            <if test="amount != null and amount != ''">
+                amount = #{amount},
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                total_price = #{totalPrice}
+            </if>
+        </set>
+        where user_id = #{userId};
+    </update>
 
+    <!-- 查询模块 -->
     <select id="selectTrolley" resultType="com.taotao.entity.ShoppingTrolley">
-        select goods, amount, total_price  from shopping_trolley where user_id = #{id};
+        select goods, amount, total_price from shopping_trolley where user_id = #{id};
     </select>
 
 </mapper>

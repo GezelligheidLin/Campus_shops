@@ -32,6 +32,15 @@ public class ShoppingTrolleyServiceImpl extends ServiceImpl<ShoppingTrolleyMappe
     public ShoppingTrolley queryTrolley(Long userId) {
         return trolleyMapper.selectTrolley(userId);
     }
+
+    /**
+     * 更新购物车
+     * @param trolley 购物车
+     */
+    @Override
+    public void modifyTrolley(ShoppingTrolley trolley) {
+        trolleyMapper.updateTrolley(trolley);
+    }
 }
 
 

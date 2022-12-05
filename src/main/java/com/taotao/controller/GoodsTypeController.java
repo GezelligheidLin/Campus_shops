@@ -3,10 +3,7 @@ package com.taotao.controller;
 import com.taotao.dto.Result;
 import com.taotao.service.GoodsTypeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -23,9 +20,16 @@ public class GoodsTypeController {
     @Resource
     private GoodsTypeService goodsTypeService;
 
-    @GetMapping("/show")
-    public Result searchGoodsType() {
-        log.info("首页淘品分类查询。。。");
-        return goodsTypeService.queryGoodsClassify();
+    @GetMapping("/icon")
+    public Result searchAllIcon() {
+        log.info("首页全部淘品分类图标查询。。。");
+        return goodsTypeService.queryAllIcon();
     }
+
+    @GetMapping("/classify")
+    public Result searchLife(@RequestParam String type) {
+        log.info("查询{}分类淘品。。。", type);
+        return goodsTypeService.queryClassifyGoods(type);
+    }
+
 }

@@ -20,6 +20,12 @@ public interface ShoppingTrolleyMapper extends BaseMapper<ShoppingTrolley> {
      * @return 购物车信息
      */
     ShoppingTrolley selectTrolley(Long userId);
+
+    /**
+     * 更新购物车
+     * @param trolley 购物车
+     */
+    void updateTrolley(ShoppingTrolley trolley);
 }
 
 

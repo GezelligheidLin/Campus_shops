@@ -59,6 +59,9 @@ public class CommodityController {
     @GetMapping("/seek")
     public Result searchCommodityKeyword(String key) {
         log.info("首页商品搜索查询。。。");
+        if (key == null || key.isEmpty()) {
+            return Result.fail("请输入搜索关键字");
+        }
         List<Commodity> commodityList = commodityService.queryKeyword(key);
         return Result.success(commodityList);
     }
