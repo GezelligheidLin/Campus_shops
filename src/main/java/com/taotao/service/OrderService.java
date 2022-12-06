@@ -2,7 +2,11 @@ package com.taotao.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.taotao.dto.OrderDTO;
 import com.taotao.entity.Order;
+import com.taotao.vo.OrderVO;
+
+import java.util.List;
 
 /**
 * @author YuLong
@@ -11,4 +15,16 @@ import com.taotao.entity.Order;
 */
 public interface OrderService extends IService<Order> {
 
+    /**
+     * 保存订单
+     * @param orderDTO 订单DTO
+     */
+    void saveOrder(OrderDTO orderDTO);
+
+    /**
+     * 查看订单
+     * @param userId 用户账号
+     * @return 订单视图对象 list
+     */
+    List<OrderVO> observeOrder(Long userId);
 }

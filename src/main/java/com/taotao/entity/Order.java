@@ -32,10 +32,16 @@ public class Order implements Serializable {
     private Long userId;
 
     /**
-     * 所有已购买的商品
+     * 商品序列号
      */
-    @TableField(value = "shopped")
-    private String shopped;
+    @TableField(value = "commodity_id")
+    private String commodityId;
+
+    /**
+     * 购买商品数量
+     */
+    @TableField(value = "buy_quantity")
+    private Long buyQuantity;
 
     /**
      * 创建时间

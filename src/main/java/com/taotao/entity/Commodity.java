@@ -74,12 +74,6 @@ public class Commodity implements Serializable {
     private Long merchantId;
 
     /**
-     * 商品数量
-     */
-    @TableField(value = "quantity")
-    private Long quantity;
-
-    /**
      * 创建时间
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)

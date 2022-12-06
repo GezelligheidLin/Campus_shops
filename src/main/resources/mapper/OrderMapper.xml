@@ -4,5 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.taotao.mapper.OrderMapper">
 
+    <!-- 插入模块 -->
+    <insert id="createOrder">
+        INSERT INTO `order` set order_id = #{orderId},
+                                user_id = #{userId},
+                                commodity_id = #{commodityId};
+    </insert>
 
+    <!-- 查询模块 -->
+    <select id="selectAllOrder" resultType="com.taotao.vo.OrderVO">
+        SELECT user.user_id, user.nick_name,
+               commodity.commodity_id, commodity.commodity_name, commodity.description, commodity.price,
+               merchant.store_name, `order`.buy_quantity, `order`.order_cost
+        FROM user
+        JOIN `order` ON user.user_id = `order`.user_id
+        JOIN commodity ON `order`.commodity_id = commodity.commodity_id
+        JOIN merchant ON commodity.merchant_id = merchant.merchant_id
+        WHERE user.user_id = #{userId};
+    </select>
 </mapper>

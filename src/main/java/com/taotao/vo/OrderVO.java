@@ -4,17 +4,19 @@ import lombok.Data;
 
 /**
  * @author YuLong
- * Date: 2022/11/30 13:56
+ * Date: 2022/12/5 14:57
  */
 @Data
-public class CommodityVO {
+public class OrderVO {
+    private Long orderId;
+    private Long userId;
+    private String nickName;
     private Long commodityId;
     private String commodityName;
-    private String image;
     private String description;
-    private String detail;
     private Long price;
-    private String evaluate;
-    private String commodityType;
+    private Long buyQuantity;
+    private Long totalPrice;
     private Long merchantId;
+    private String storeName;
 }
