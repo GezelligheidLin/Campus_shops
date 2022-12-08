@@ -6,7 +6,6 @@ import com.taotao.dto.Result;
 import com.taotao.dto.UserLoginFormDTO;
 import com.taotao.entity.User;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -26,10 +25,18 @@ public interface UserService extends IService<User> {
     /**
      * 用户登录功能
      * @param userLoginFormDTO 用户登录信息DTO
-     * @param session 会话控制
      * @return  Result
      */
-    Result login(UserLoginFormDTO userLoginFormDTO, HttpSession session);
+    Result login(UserLoginFormDTO userLoginFormDTO);
+
+    /**
+     * 用户重置手机号码
+     * @param oldPhone 原手机号
+     * @param phone 新手机号
+     * @param code 验证码
+     * @return  Result
+     */
+    Result resetPhone(String oldPhone, String phone, String code);
 
     /**
      * 查询商家热力榜的单个商家所属个人信息
@@ -49,5 +56,18 @@ public interface UserService extends IService<User> {
      * 更新用户个人信息
      * @param user 用户信息
      */
-    void updateUserInfo(User user);
+    void modifyUserInfo(User user);
+
+    /**
+     * 用户实名认证
+     * @param user 用户实名信息
+     */
+    void modifyUserRealName(User user);
+
+    /**
+     * 根据 userId查询数据库中密码
+     * @param userId 用户账号
+     * @return 数据库中的密码
+     */
+    String queryPasswordOfDatabase(Long userId);
 }

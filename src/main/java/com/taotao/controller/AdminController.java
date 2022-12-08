@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 /**
  * @author YuLong
@@ -28,12 +27,11 @@ public class AdminController {
     /**
      * 发送短信验证码
      * @param phone 手机号码
-     * @param session 会话控制
      * @return 通用返回结果
      */
     @PostMapping("/code")
-    public Result sendCode(@RequestParam("phone") String phone, HttpSession session) {
-        return adminService.sendCodeOfTel(phone, session);
+    public Result sendCode(@RequestParam("phone") String phone) {
+        return adminService.sendCodeOfTel(phone);
     }
 
     /**
@@ -42,8 +40,8 @@ public class AdminController {
      * @return 通用返回结果
      */
     @PostMapping("/login")
-    public Result adminLogin(@RequestBody AdminLoginFormDTO adminLoginFormDTO, HttpSession session) {
-        return adminService.loginProcessingFlow(adminLoginFormDTO, session);
+    public Result adminLogin(@RequestBody AdminLoginFormDTO adminLoginFormDTO) {
+        return adminService.loginProcessingFlow(adminLoginFormDTO);
     }
 
     /**

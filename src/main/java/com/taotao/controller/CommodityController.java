@@ -66,6 +66,11 @@ public class CommodityController {
         return Result.success(commodityList);
     }
 
+    /**
+     * 将商品 list转换为商品视图对象 list
+     * @param list 商品 list
+     * @return 商品视图对象 list
+     */
     private List<CommodityVO> entityConvertToVO(List<Commodity> list) {
         return list.stream().map( (item) ->
                 BeanUtil.copyProperties(item, CommodityVO.class)

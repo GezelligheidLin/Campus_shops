@@ -5,11 +5,12 @@
 <mapper namespace="com.taotao.mapper.GoodsTypeMapper">
 
     <select id="selectAllIcon" resultType="com.taotao.entity.GoodsType">
-        SELECT type, url FROM goods_type LIMIT #{iconSize};
+        SELECT type, url FROM goods_type WHERE is_deleted = 0 LIMIT #{iconSize};
     </select>
     <select id="selectClassifyGoods" resultType="com.taotao.entity.Commodity">
         SELECT commodity_id, commodity_name, image, description, detail,
-               price, evaluate, commodity_type, merchant_id, quantity
-        FROM commodity where commodity_type = #{type}
+               price, evaluate, commodity_type, merchant_id
+        FROM commodity where commodity_type = #{type} AND is_deleted = 0
+        LIMIT #{classifyGoodsSize};
     </select>
 </mapper>

@@ -11,15 +11,15 @@ import java.util.Date;
 @Data
 public class UserInfoDTO {
     private Long userId;
-    private String cardId;
+    private String oldPhone;
     private String phone;
+    private String code;
+    private String rawPassword;
     private String password;
-    private String realName;
-    private String sex;
     private String focus;
-    private String address;
     private Date birthday;
     private String nickName;
     private String icon;
+    private String address;
     private Integer isMerchant;
 }

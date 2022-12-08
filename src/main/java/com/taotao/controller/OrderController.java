@@ -27,7 +27,7 @@ public class OrderController {
     public Result generateOrder(@RequestBody OrderDTO orderDTO) {
         log.info("为用户生成订单中。。。");
         orderService.saveOrder(orderDTO);
-        return Result.success("创建订单成功！");
+        return Result.success("购买成功！");
     }
 
     @GetMapping("/view")

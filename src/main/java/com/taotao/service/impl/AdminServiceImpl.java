@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 import java.util.concurrent.TimeUnit;
 
 import static com.taotao.util.RedisConstants.*;
@@ -41,11 +40,10 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     /**
      * 发送短信验证码
      * @param phone 手机号码
-     * @param session 会话控制
      * @return 通用返回结果
      */
     @Override
-    public Result sendCodeOfTel(String phone, HttpSession session) {
+    public Result sendCodeOfTel(String phone) {
         // 1.校验手机号
         if (RegexUtils.isPhoneInvalid(phone)) {
             // 2.如果不符合，返回错误信息
@@ -55,7 +53,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         String authCode = RandomUtil.randomNumbers(6);
         // 4.保存验证码到 redis
         long authCodeTime = LOGIN_CODE_TTL + RandomUtil.randomLong(LOGIN_CODE_TTL);
-        stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY + phone, authCode, authCodeTime);
+        stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY + phone, authCode, authCodeTime, TimeUnit.MINUTES);
         log.info("管理员点击发送验证码时获取到的手机号码： {}", phone);
         // 5.发送验证码
         log.debug("发送短信验证码成功，验证码：{}", authCode);
@@ -70,7 +68,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result loginProcessingFlow(AdminLoginFormDTO adminLoginFormDTO, HttpSession session) {
+    public Result loginProcessingFlow(AdminLoginFormDTO adminLoginFormDTO) {
         // 1.检验手机号
         String phone = adminLoginFormDTO.getPhone();
         if (RegexUtils.isPhoneInvalid(phone)) {

@@ -25,6 +25,8 @@ public class GoodsTypeServiceImpl extends ServiceImpl<GoodsTypeMapper, GoodsType
 
     private static final int ICON_SIZE = 10;
 
+    private static final int CLASSIFY_GOODS_SIZE = 8;
+
     /**
      * 查询全部分类图标
      * @return 分类图标 list
@@ -41,7 +43,7 @@ public class GoodsTypeServiceImpl extends ServiceImpl<GoodsTypeMapper, GoodsType
      */
     @Override
     public Result queryClassifyGoods(String type) {
-        return Result.success(goodsTypeMapper.selectClassifyGoods(type));
+        return Result.success(goodsTypeMapper.selectClassifyGoods(type, CLASSIFY_GOODS_SIZE));
     }
 }
 

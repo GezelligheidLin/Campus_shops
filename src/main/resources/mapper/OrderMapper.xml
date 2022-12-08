@@ -20,6 +20,6 @@
         JOIN `order` ON user.user_id = `order`.user_id
         JOIN commodity ON `order`.commodity_id = commodity.commodity_id
         JOIN merchant ON commodity.merchant_id = merchant.merchant_id
-        WHERE user.user_id = #{userId};
+        WHERE user.user_id = #{userId} AND `order`.is_deleted = 0;
     </select>
 </mapper>

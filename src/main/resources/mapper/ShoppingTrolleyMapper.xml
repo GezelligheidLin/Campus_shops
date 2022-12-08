@@ -17,12 +17,12 @@
                 total_price = #{totalPrice}
             </if>
         </set>
-        where user_id = #{userId};
+        where user_id = #{userId} AND is_deleted = 0;
     </update>
 
     <!-- 查询模块 -->
     <select id="selectTrolley" resultType="com.taotao.entity.ShoppingTrolley">
-        select goods, amount, total_price from shopping_trolley where user_id = #{id};
+        select goods, amount, total_price from shopping_trolley where user_id = #{id} AND is_deleted = 0;
     </select>
 
 </mapper>

@@ -51,12 +51,6 @@ public class User implements Serializable {
     private String realName;
 
     /**
-     * 性别
-     */
-    @TableField(value = "sex")
-    private String sex;
-
-    /**
      * 关注的店铺
      */
     @TableField(value = "focus")
@@ -87,12 +81,6 @@ public class User implements Serializable {
     private String icon;
 
     /**
-     *
-     */
-    @TableField(value = "is_merchant")
-    private Integer isMerchant;
-
-    /**
      * 创建时间
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)
@@ -103,6 +91,18 @@ public class User implements Serializable {
      */
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    /**
+     * 是否为商家
+     */
+    @TableField(value = "is_merchant")
+    private Integer isMerchant;
+
+    /**
+     * 是否已实名
+     */
+    @TableField(value = "is_real")
+    private Integer isReal;
 
     /**
      * 逻辑删除

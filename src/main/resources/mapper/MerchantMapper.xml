@@ -5,7 +5,10 @@
 <mapper namespace="com.taotao.mapper.MerchantMapper">
 
     <select id="selectHotRank" resultType="com.taotao.entity.Merchant">
-        select user_id, fansCount from merchant order by fansCount desc limit #{hotRankSize};
+        select user_id, fansCount
+        from merchant
+        WHERE is_deleted = 0
+        order by fansCount desc limit #{hotRankSize};
     </select>
 
 </mapper>

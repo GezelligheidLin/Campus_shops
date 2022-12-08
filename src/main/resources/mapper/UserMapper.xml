@@ -5,38 +5,39 @@
 <mapper namespace="com.taotao.mapper.UserMapper">
 
     <!-- 查询模块 -->
-    <select id="selectHotRankOfUserInfo" resultType="com.taotao.entity.User">
-
-    </select>
     <select id="selectSingleHotRandOfUserInfo" resultType="com.taotao.entity.User">
-        select * from user where user_id = #{id}
+        SELECT * FROM user WHERE user_id = #{id} AND is_deleted = 0;
     </select>
 
     <select id="selectListHotRandOfUserInfo" resultType="com.taotao.entity.User">
-        select * from user
-                 where user_id in
+        SELECT * FROM user
+        WHERE user_id in
                  <foreach collection="list" item="item"
                           index="index" open="(" separator="," close=")">
                      #{item}
                  </foreach>
     </select>
 
+    <select id="selectPhoneOfUser" resultType="java.lang.String">
+        SELECT phone FROM user
+        WHERE phone = #{phone} AND is_deleted = 0;
+    </select>
+
+    <select id="selectPasswordOfDatabase" resultType="java.lang.String">
+        SELECT password FROM user
+        WHERE user_id = #{userId} AND is_deleted = 0;
+    </select>
+
 
     <!-- 更新模块 -->
-    <update id="updateUser">
-        update user
+    <update id="updateUserInfo">
+        UPDATE user
             <set>
-                <if test="cardId != null and cardId != ''">
-                    card_id = #{cardId},
-                </if>
                 <if test="phone != null and phone != ''">
                     phone = #{phone},
                 </if>
-                <if test="realName != null and realName != ''">
-                    real_name = #{realName},
-                </if>
-                <if test="sex != null and sex != ''">
-                    sex = #{sex},
+                <if test="password != null and password != ''">
+                    password = #{password},
                 </if>
                 <if test="address != null and address != ''">
                     address = #{address},
@@ -51,6 +52,20 @@
                     icon = #{icon}
                 </if>
             </set>
-        where user_id = #{userId};
+        WHERE user_id = #{userId} AND is_deleted = 0;
+    </update>
+
+    <update id="updateUserRealName">
+        UPDATE user
+            <set>
+                <if test="cardId != null and cardId != ''">
+                    card_id = #{cardId},
+                </if>
+                <if test="realName != null and realName != ''">
+                    real_name = #{realName},
+                </if>
+                is_real = 1
+            </set>
+        WHERE user_id = #{userId} AND is_real = 0 AND is_deleted = 0;
     </update>
 </mapper>

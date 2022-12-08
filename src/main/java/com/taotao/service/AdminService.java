@@ -6,8 +6,6 @@ import com.taotao.dto.AdminLoginFormDTO;
 import com.taotao.dto.Result;
 import com.taotao.entity.Admin;
 
-import javax.servlet.http.HttpSession;
-
 
 /**
 * @author YuLong
@@ -17,24 +15,22 @@ import javax.servlet.http.HttpSession;
 public interface AdminService extends IService<Admin> {
     /**
      * 发送短信验证码
-     * @param phone
-     * @param session
-     * @return
+     * @param phone 手机号码
+     * @return Result
      */
-    Result sendCodeOfTel(String phone, HttpSession session);
+    Result sendCodeOfTel(String phone);
 
     /**
      * 管理员登录处理流程
-     * @param adminLoginFormDTO
-     * @param session
-     * @return
+     * @param adminLoginFormDTO 管理员登录DTO
+     * @return Result
      */
-    Result loginProcessingFlow(AdminLoginFormDTO adminLoginFormDTO, HttpSession session);
+    Result loginProcessingFlow(AdminLoginFormDTO adminLoginFormDTO);
 
     /**
      * 管理员注册流程
-     * @param adminLoginFormDTO
-     * @return
+     * @param adminLoginFormDTO 管理员登录DTO
+     * @return Result
      */
     Result registerProcess(AdminLoginFormDTO adminLoginFormDTO);
 

@@ -17,7 +17,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -58,7 +57,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         String authCode = RandomUtil.randomNumbers(AUTH_CODE_LENGTH);
         // 4.保存验证码到 redis
         String codeKey = LOGIN_CODE_KEY + phone;
-        stringRedisTemplate.opsForValue().set(codeKey, JSONUtil.toJsonStr(authCode));
+        long codeTime = LOGIN_CODE_TTL + RandomUtil.randomLong(LOGIN_CODE_TTL) / 2;
+        stringRedisTemplate.opsForValue().set(codeKey, JSONUtil.toJsonStr(authCode), codeTime, TimeUnit.MINUTES);
         log.info("用户点击发送验证码时获取到的手机号码： {}", phone);
         // 5.发送验证码
         log.debug("发送短信验证码成功，验证码：{}", authCode);
@@ -69,11 +69,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     /**
      * 用户登录功能
      * @param userLoginFormDTO 用户登录信息DTO
-     * @param session 会话控制
      * @return  Result
      */
     @Override
-    public Result login(UserLoginFormDTO userLoginFormDTO, HttpSession session) {
+    public Result login(UserLoginFormDTO userLoginFormDTO) {
         // 1.校验手机号
         String phone = userLoginFormDTO.getPhone();
         String authCode = userLoginFormDTO.getCode();
@@ -113,6 +112,41 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     /**
+     * 用户重置手机号码
+     * @param oldPhone 原手机号
+     * @param phone 新手机号
+     * @param code 验证码
+     * @return  Result
+     */
+    @Override
+    public Result resetPhone(String oldPhone, String phone, String code) {
+        // 校验手机号
+        if (RegexUtils.isPhoneInvalid(oldPhone)) {
+            return Result.fail("手机格式不正确");
+        }
+        // 从redis中获取短信验证码并校验
+        String codeKey = LOGIN_CODE_KEY + oldPhone;
+        String cacheCode = stringRedisTemplate.opsForValue().get(codeKey);
+        if (cacheCode == null || !cacheCode.equals(code)) {
+            // 不一致，报错
+            return Result.fail("验证码错误");
+        }
+        // 一致，根据手机号查询用户，验证该手机是否存在
+        String existUserPhone = userMapper.selectPhoneOfUser(oldPhone);
+        if (existUserPhone == null) {
+            // 不存在，返回 fail
+            return Result.fail("原手机号不存在");
+        }
+        // 存在则继续查询在数据库是否存在与新手机号重复的手机号码
+        String repeatPhone = userMapper.selectPhoneOfUser(phone);
+        // 若重复则返回 fail
+        if (repeatPhone != null) {
+            return Result.fail("该手机号已注册！");
+        }
+        return Result.success();
+    }
+
+    /**
      * 查询商家热力榜的单个商家所属个人信息
      * @param id 商家id
      * @return  Result
@@ -139,8 +173,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * @param user 用户信息
      */
     @Override
-    public void updateUserInfo(User user) {
-        userMapper.updateUser(user);
+    public void modifyUserInfo(User user) {
+        userMapper.updateUserInfo(user);
+    }
+
+    /**
+     * 用户实名认证
+     * @param user 用户实名信息
+     */
+    @Override
+    public void modifyUserRealName(User user) {
+        userMapper.updateUserRealName(user);
+    }
+
+    /**
+     * 根据 userId查询数据库中密码
+     * @param userId 用户账号
+     * @return 数据库中的密码
+     */
+    @Override
+    public String queryPasswordOfDatabase(Long userId) {
+        return userMapper.selectPasswordOfDatabase(userId);
     }
 
     private User createWithPhone(String phone) {

@@ -31,12 +31,30 @@ public interface UserMapper extends BaseMapper<User> {
     List<User> selectListHotRandOfUserInfo(List<String> ids);
 
     /**
+     * 查询数据库是否有重复的手机号
+     * @param phone 待查询的手机号
+     * @return 重复手机号 or null
+     */
+    String selectPhoneOfUser(String phone);
+
+    /**
      * 更新用户个人信息
      * @param user 用户信息
      */
-    void updateUser(User user);
+    void updateUserInfo(User user);
+
+    /**
+     * 用户实名认证
+     * @param user 用户实名信息
+     */
+    void updateUserRealName(User user);
+
+    /**
+     * 根据 userId查询数据库中密码
+     * @param userId 用户账号
+     * @return 数据库中的密码
+     */
+    String selectPasswordOfDatabase(Long userId);
 }
-
-
 
 
