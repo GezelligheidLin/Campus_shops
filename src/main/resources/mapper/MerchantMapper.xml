@@ -8,7 +8,7 @@
         SELECT user_id, fans_count
         FROM merchant
         WHERE is_deleted = 0
-        ORDER BY fans_count DESC limit #{hotRankSize};
+        ORDER BY fans_count DESC LIMIT #{hotRankSize};
     </select>
     <select id="selectMerchantOfAdmin" resultType="com.taotao.entity.Merchant">
         SELECT merchant_id, user_id, store_name, fans_count FROM merchant

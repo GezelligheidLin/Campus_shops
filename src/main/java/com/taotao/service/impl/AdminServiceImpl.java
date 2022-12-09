@@ -68,8 +68,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         // 3.符合，生成验证码
         String authCode = RandomUtil.randomNumbers(AUTH_CODE_LENGTH);
         // 4.保存验证码到 redis
-        long authCodeTime = ADMIN_LOGIN_TTL + RandomUtil.randomLong(ADMIN_LOGIN_TTL);
-        String codeKey = ADMIN_LOGIN_KEY + phone;
+        long authCodeTime = ADMIN_CODE_TTL + RandomUtil.randomLong(ADMIN_CODE_TTL);
+        String codeKey = ADMIN_CODE_KEY + phone;
         stringRedisTemplate.opsForValue().set(codeKey, authCode, authCodeTime, TimeUnit.MINUTES);
         log.info("管理员点击发送验证码时获取到的手机号码： {}", phone);
         // 5.发送验证码
@@ -99,7 +99,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         if (rawPassword == null || rawPassword.isEmpty() ) {
             // 2.1.验证码登录
             // 2.1.1.在 redis中获取管理员验证码并校验
-            String adminLoginKey = ADMIN_LOGIN_KEY + phone;
+            String adminLoginKey = ADMIN_TOKEN_KEY + phone;
             String cacheCode = stringRedisTemplate.opsForValue().get(adminLoginKey);
             String code = adminLoginFormDTO.getCode();
             if (cacheCode == null || !cacheCode.equals(code)) {
@@ -109,7 +109,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         } else {
             // 2.2.密码登录
             // 2.2.1.先从redis中查询密码
-            String adminLoginKey = ADMIN_LOGIN_KEY + adminLoginFormDTO.getId();
+            String adminLoginKey = ADMIN_CODE_KEY + adminLoginFormDTO.getId();
             String adminJson = stringRedisTemplate.opsForValue().get(adminLoginKey);
             AdminLoginFormDTO adLogin = JSONUtil.toBean(adminJson, AdminLoginFormDTO.class);
             String encodedPassword = adLogin.getPassword();
@@ -157,7 +157,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         stringRedisTemplate.expire(tokenKey, adminLoginTime, TimeUnit.SECONDS);
         log.info("tempToken = {}", tokenKey);
         log.info("管理员登录成功");
-        return Result.success("管理员登录成功");
+        return Result.success(token);
     }
     /**
      * 管理员注册流程
@@ -193,8 +193,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         // 4.将管理员id和密码放入 DTO中，并将DTO数据存入 Redis
         adminLoginFormDTO.setId(adminId);
         adminLoginFormDTO.setPassword(encodedPassword);
-        long adminPasswordTime = ADMIN_LOGIN_TTL + RandomUtil.randomLong(ADMIN_LOGIN_TTL);
-        String key = ADMIN_LOGIN_KEY + adminId;
+        long adminPasswordTime = ADMIN_CODE_TTL + RandomUtil.randomLong(ADMIN_CODE_TTL);
+        String key = ADMIN_CODE_KEY + adminId;
         stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(adminLoginFormDTO), adminPasswordTime, TimeUnit.MINUTES);
         log.info("保存新建管理员数据到Redis成功");
         return Result.success("管理员注册成功");

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.TimeUnit;
 
-import static com.taotao.util.RedisConstants.ADMIN_LOGIN_KEY;
+import static com.taotao.util.RedisConstants.ADMIN_CODE_KEY;
 import static com.taotao.util.RedisConstants.ADMIN_TOKEN_TTL;
 import static com.taotao.util.SystemConstants.AUTHORIZATION;
 
@@ -30,7 +30,7 @@ public class AdminRefreshTokenInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         // 1.获取请求头中的 token
         String token = request.getHeader(AUTHORIZATION);
         log.info("请求头中的token = {}", token);
@@ -39,7 +39,7 @@ public class AdminRefreshTokenInterceptor implements HandlerInterceptor {
         }
 
         // 2.基于 token获取 redis中的管理员
-        String key = ADMIN_LOGIN_KEY + token;
+        String key = ADMIN_CODE_KEY + token;
         String adminJson = stringRedisTemplate.opsForValue().get(key);
 
         // 3.判断管理员是否存在
@@ -61,7 +61,7 @@ public class AdminRefreshTokenInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) {
         // 移除用户
         AdminHolder.removeAdmin();
     }

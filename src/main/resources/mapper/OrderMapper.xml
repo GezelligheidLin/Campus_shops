@@ -6,7 +6,7 @@
 
     <!-- 插入模块 -->
     <insert id="createOrder">
-        INSERT INTO `order` set order_id = #{orderId},
+        INSERT INTO `order` SET order_id = #{orderId},
                                 user_id = #{userId},
                                 commodity_id = #{commodityId};
     </insert>

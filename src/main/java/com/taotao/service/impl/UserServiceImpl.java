@@ -60,8 +60,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         // 3.符合，生成验证码
         String authCode = RandomUtil.randomNumbers(AUTH_CODE_LENGTH);
         // 4.保存验证码到 redis
-        String codeKey = LOGIN_CODE_KEY + phone;
-        long codeTime = LOGIN_CODE_TTL + RandomUtil.randomLong(LOGIN_CODE_TTL) / 2;
+        String codeKey = USER_CODE_KEY + phone;
+        long codeTime = USER_CODE_TTL + RandomUtil.randomLong(USER_CODE_TTL) / 2;
         stringRedisTemplate.opsForValue().set(codeKey, JSONUtil.toJsonStr(authCode), codeTime, TimeUnit.MINUTES);
         log.info("用户点击发送验证码时获取到的手机号码： {}", phone);
         // 5.发送验证码
@@ -84,7 +84,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return Result.fail("手机格式不正确");
         }
         // 2.从redis中获取短信验证码并校验
-        String codeKey = LOGIN_CODE_KEY + phone;
+        String codeKey = USER_CODE_KEY + phone;
         String cacheCode = stringRedisTemplate.opsForValue().get(codeKey);
         if (cacheCode == null || !cacheCode.equals(authCode)) {
             // 2.1.不一致，报错
@@ -105,10 +105,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         UserVO userVO = BeanUtil.copyProperties(user, UserVO.class);
         String userJson = JSONUtil.toJsonStr(userVO);
         // 5.3.存储
-        String userTokenKey = LOGIN_USER_KEY + token;
+        String userTokenKey = USER_TOKEN_KEY + token;
         stringRedisTemplate.opsForValue().set(userTokenKey, userJson);
         // 5.4.设置 token有效期
-        long userTokenTime = LOGIN_USER_TTL + RandomUtil.randomLong(LOGIN_USER_TTL) / 2;
+        long userTokenTime = USER_TOKEN_TTL + RandomUtil.randomLong(USER_TOKEN_TTL) / 2;
         stringRedisTemplate.expire(userTokenKey, userTokenTime, TimeUnit.SECONDS);
         log.info("用户登录成功");
         // 6.返回 token
@@ -129,7 +129,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return Result.fail("手机格式不正确");
         }
         // 从redis中获取短信验证码并校验
-        String codeKey = LOGIN_CODE_KEY + oldPhone;
+        String codeKey = USER_CODE_KEY + oldPhone;
         String cacheCode = stringRedisTemplate.opsForValue().get(codeKey);
         if (cacheCode == null || !cacheCode.equals(code)) {
             // 不一致，报错

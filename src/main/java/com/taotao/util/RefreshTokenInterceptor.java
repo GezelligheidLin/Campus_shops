@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.TimeUnit;
 
-import static com.taotao.util.RedisConstants.LOGIN_USER_KEY;
-import static com.taotao.util.RedisConstants.LOGIN_USER_TTL;
+import static com.taotao.util.RedisConstants.USER_TOKEN_KEY;
+import static com.taotao.util.RedisConstants.USER_TOKEN_TTL;
 import static com.taotao.util.SystemConstants.AUTHORIZATION;
 
 
@@ -39,7 +39,7 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
         }
 
         // 2.基于 token获取 redis中的用户
-        String key = LOGIN_USER_KEY + token;
+        String key = USER_TOKEN_KEY + token;
         String userJson = stringRedisTemplate.opsForValue().get(key);
 
         // 3.判断用户是否存在，若取到的值为 null，则返回
@@ -54,7 +54,7 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
         UserHolder.saveUser(userVO);
 
         // 6.刷新 token有效期
-        stringRedisTemplate.expire(key, LOGIN_USER_TTL, TimeUnit.MINUTES);
+        stringRedisTemplate.expire(key, USER_TOKEN_TTL, TimeUnit.SECONDS);
 
         // 7.放行
         return true;
