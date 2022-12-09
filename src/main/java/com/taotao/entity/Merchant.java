@@ -32,6 +32,12 @@ public class Merchant implements Serializable {
     private Long userId;
 
     /**
+     * 店铺名
+     */
+    @TableField(value = "store_name")
+    private String storeName;
+
+    /**
      * 粉丝
      */
     @TableField(value = "fans")
@@ -40,7 +46,7 @@ public class Merchant implements Serializable {
     /**
      * 粉丝数量
      */
-    @TableField(value = "fansCount")
+    @TableField(value = "fans_count")
     private Long fansCount;
 
     /**

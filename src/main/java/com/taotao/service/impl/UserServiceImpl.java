@@ -4,7 +4,10 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.taotao.dto.PageData;
 import com.taotao.dto.Result;
 import com.taotao.dto.UserLoginFormDTO;
 import com.taotao.entity.User;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.taotao.util.RedisConstants.*;
@@ -194,6 +198,36 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public String queryPasswordOfDatabase(Long userId) {
         return userMapper.selectPasswordOfDatabase(userId);
+    }
+
+    /**
+     * 管理员查询用户 （可用关键字搜索）
+     * @param pageData 分页信息
+     * @return 用户分页
+     */
+    @Override
+    public Page<User> queryUserOfAdmin(PageData pageData) {
+        // 获取到前端发送过来的分页数据
+        Integer page = pageData.getPage();
+        Integer pageSize = pageData.getPageSize();
+        String key = pageData.getKey();
+        Map<String, List<Boolean>> sortMap = pageData.getSortMap();
+        log.info("page = {}, pageSize = {}, key = {}, sortMap = {}", page, pageSize, key, sortMap);
+        // 从sortMap中拿取到排序条件
+        List<Boolean> createTimeSort = sortMap.get(CREATE_TIME_SORT);
+        Boolean createTimeSortStatus = createTimeSort.get(LIST_FIRST_INDEX);
+        Boolean createTimeSortOrder = createTimeSort.get(LIST_SECOND_INDEX);
+        // 构造分页器
+        Page<User> pageInfo = new Page<>(page, pageSize);
+        // 用 LambdaQueryWrapper 查询并按条件进行排序
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(User::getCreateTime, key)
+                .orderBy(createTimeSortStatus,
+                        createTimeSortOrder, User::getCreateTime);
+        // 将 LambdaQueryWrapper中数据赋给 pageInfo
+        page(pageInfo, queryWrapper);
+        // 返回分页数据
+        return pageInfo;
     }
 
     private User createWithPhone(String phone) {

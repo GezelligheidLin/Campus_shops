@@ -1,7 +1,9 @@
 package com.taotao.service;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.taotao.dto.PageData;
 import com.taotao.dto.Result;
 import com.taotao.dto.UserLoginFormDTO;
 import com.taotao.entity.User;
@@ -70,4 +72,11 @@ public interface UserService extends IService<User> {
      * @return 数据库中的密码
      */
     String queryPasswordOfDatabase(Long userId);
+
+    /**
+     * 管理员查询用户 （可用关键字搜索）
+     * @param pageData 分页信息
+     * @return 用户分页
+     */
+    Page<User> queryUserOfAdmin(PageData pageData);
 }

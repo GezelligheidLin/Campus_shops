@@ -44,6 +44,12 @@ public class Admin implements Serializable {
     private String realName;
 
     /**
+     * 管理员图标
+     */
+    @TableField(value = "admin_icon")
+    private String adminIcon;
+
+    /**
      * 性别
      */
     @TableField(value = "sex")

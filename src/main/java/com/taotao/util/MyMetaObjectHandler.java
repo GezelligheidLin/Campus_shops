@@ -22,7 +22,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     /**
      * 插入字段，自动填充
-     * @param metaObject
+     * @param metaObject 源对象
      */
     @Override
     public void insertFill(MetaObject metaObject) {
@@ -34,7 +34,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     /**
      * 更新字段，自动填充
-     * @param metaObject
+     * @param metaObject 源对象
      */
     @Override
     public void updateFill(MetaObject metaObject) {

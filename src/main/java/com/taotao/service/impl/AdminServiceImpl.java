@@ -5,13 +5,20 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.taotao.dto.AdminDTO;
 import com.taotao.dto.AdminLoginFormDTO;
+import com.taotao.dto.PageData;
 import com.taotao.dto.Result;
 import com.taotao.entity.Admin;
+import com.taotao.entity.Merchant;
+import com.taotao.entity.User;
 import com.taotao.mapper.AdminMapper;
 import com.taotao.service.AdminService;
+import com.taotao.service.MerchantService;
+import com.taotao.service.UserService;
 import com.taotao.util.PasswordEncoder;
 import com.taotao.util.RegexUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +27,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.taotao.util.RedisConstants.*;
@@ -37,6 +46,12 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
+    @Resource
+    private MerchantService merchantService;
+
+    @Resource
+    private UserService userService;
+
     /**
      * 发送短信验证码
      * @param phone 手机号码
@@ -49,11 +64,13 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
             // 2.如果不符合，返回错误信息
             return Result.fail("手机号码格式不正确");
         }
+        //
         // 3.符合，生成验证码
-        String authCode = RandomUtil.randomNumbers(6);
+        String authCode = RandomUtil.randomNumbers(AUTH_CODE_LENGTH);
         // 4.保存验证码到 redis
-        long authCodeTime = LOGIN_CODE_TTL + RandomUtil.randomLong(LOGIN_CODE_TTL);
-        stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY + phone, authCode, authCodeTime, TimeUnit.MINUTES);
+        long authCodeTime = ADMIN_LOGIN_TTL + RandomUtil.randomLong(ADMIN_LOGIN_TTL);
+        String codeKey = ADMIN_LOGIN_KEY + phone;
+        stringRedisTemplate.opsForValue().set(codeKey, authCode, authCodeTime, TimeUnit.MINUTES);
         log.info("管理员点击发送验证码时获取到的手机号码： {}", phone);
         // 5.发送验证码
         log.debug("发送短信验证码成功，验证码：{}", authCode);
@@ -85,7 +102,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
             String adminLoginKey = ADMIN_LOGIN_KEY + phone;
             String cacheCode = stringRedisTemplate.opsForValue().get(adminLoginKey);
             String code = adminLoginFormDTO.getCode();
-            if (cacheCode == null || cacheCode.equals(code)) {
+            if (cacheCode == null || !cacheCode.equals(code)) {
                 // 2.1.2不一致，报错
                 return Result.fail("验证码错误");
             }
@@ -102,7 +119,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
                 admin = query().eq(AUTH_PHONE, phone).one();
                 // 查不到，直接返回
                 if (admin == null) {
-                    return Result.fail("1.是否要新建管理员?");
+                    return Result.fail("是否要新建管理员?");
                 }
                 encodedPassword = admin.getPassword();
                 flag = true;
@@ -122,7 +139,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         // 4.判断 admin是否为空
         if (admin == null) {
             // 数据库中没有该管理员，需创建，此时发送消息到前端询问超管是否要新建用户，可避免误输入而创建不必要的新管理员的情况
-            return Result.fail("2.是否要新建管理员?");
+            return Result.fail("是否要新建管理员?");
         }
 
         // 5.一致，保存管理员信息到 redis
@@ -138,10 +155,10 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         // 5.4.设置 token有效期
         long adminLoginTime = ADMIN_TOKEN_TTL + RandomUtil.randomLong(ADMIN_TOKEN_TTL) / 2;
         stringRedisTemplate.expire(tokenKey, adminLoginTime, TimeUnit.SECONDS);
+        log.info("tempToken = {}", tokenKey);
         log.info("管理员登录成功");
         return Result.success("管理员登录成功");
     }
-
     /**
      * 管理员注册流程
      * @param adminLoginFormDTO 管理员登录DTO
@@ -181,6 +198,56 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(adminLoginFormDTO), adminPasswordTime, TimeUnit.MINUTES);
         log.info("保存新建管理员数据到Redis成功");
         return Result.success("管理员注册成功");
+    }
+
+    /**
+     * 管理员查询商家中间传输方法（数据传输 adminService -> merchantService）
+     * @param pageData 分页信息
+     * @return 商家分页
+     */
+    @Override
+    public Page<Merchant> viewMerchantOfAdminWithTransmitData(PageData pageData) {
+        return merchantService.queryMerchantOfAdmin(pageData);
+    }
+
+    /**
+     * 管理员查询用户（数据传输 adminService -> userService）
+     * @param pageData 分页信息
+     * @return 用户分页
+     */
+    @Override
+    public Page<User> viewUserOfAdminWithTransmitData(PageData pageData) {
+        return userService.queryUserOfAdmin(pageData);
+    }
+
+    /**
+     * 超级管理员查询普通管理员
+     * @param pageData 分页信息
+     * @return 管理员分页
+     */
+    @Override
+    public Page<Admin> viewAdmin(PageData pageData) {
+        // 获取到前端发送过来的分页数据
+        Integer page = pageData.getPage();
+        Integer pageSize = pageData.getPageSize();
+        String key = pageData.getKey();
+        Map<String, List<Boolean>> sortMap = pageData.getSortMap();
+        log.info("page = {}, pageSize = {}, key = {}, sortMap = {}", page, pageSize, key, sortMap);
+        // 从sortMap中拿取到排序条件
+        List<Boolean> createTimeSort = sortMap.get(CREATE_TIME_SORT);
+        Boolean createTimeSortStatus = createTimeSort.get(LIST_FIRST_INDEX);
+        Boolean createTimeSortOrder = createTimeSort.get(LIST_SECOND_INDEX);
+        // 构造分页器
+        Page<Admin> pageInfo = new Page<>(page, pageSize);
+        // 用 LambdaQueryWrapper 查询并按条件进行排序
+        LambdaQueryWrapper<Admin> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(Admin::getCreateTime, key)
+                .orderBy(createTimeSortStatus,
+                        createTimeSortOrder, Admin::getCreateTime);
+        // 将 LambdaQueryWrapper中数据赋给 pageInfo
+        page(pageInfo, queryWrapper);
+        // 返回分页数据
+        return pageInfo;
     }
 
     /**

@@ -1,10 +1,14 @@
 package com.taotao.service;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.taotao.dto.AdminLoginFormDTO;
+import com.taotao.dto.PageData;
 import com.taotao.dto.Result;
 import com.taotao.entity.Admin;
+import com.taotao.entity.Merchant;
+import com.taotao.entity.User;
 
 
 /**
@@ -34,5 +38,24 @@ public interface AdminService extends IService<Admin> {
      */
     Result registerProcess(AdminLoginFormDTO adminLoginFormDTO);
 
+    /**
+     * 管理员查询商家（数据传输 adminService -> merchantService）
+     * @param pageData 分页信息
+     * @return 商家分页
+     */
+    Page<Merchant> viewMerchantOfAdminWithTransmitData(PageData pageData);
 
+    /**
+     * 管理员查询用户（数据传输 adminService -> userService）
+     * @param pageData 分页信息
+     * @return 用户分页
+     */
+    Page<User> viewUserOfAdminWithTransmitData(PageData pageData);
+
+    /**
+     * 超级管理员查询普通管理员
+     * @param pageData 分页信息
+     * @return 管理员分页
+     */
+    Page<Admin> viewAdmin(PageData pageData);
 }

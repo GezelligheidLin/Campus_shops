@@ -31,9 +31,9 @@
     <select id="selectKeyword" resultType="com.taotao.entity.Commodity">
         SELECT commodity_id, commodity_name, image, description, detail,
                price, evaluate, commodity_type, merchant_id
-        FROM commodity where
+        FROM commodity WHERE
         <if test="#{key} != null and #{key} != ''">
-            commodity_name like "%"#{key}"%";
+            commodity_name LIKE "%"#{key}"%";
         </if>
     </select>
 </mapper>

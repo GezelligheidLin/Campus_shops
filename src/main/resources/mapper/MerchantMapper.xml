@@ -5,10 +5,16 @@
 <mapper namespace="com.taotao.mapper.MerchantMapper">
 
     <select id="selectHotRank" resultType="com.taotao.entity.Merchant">
-        select user_id, fansCount
-        from merchant
+        SELECT user_id, fans_count
+        FROM merchant
         WHERE is_deleted = 0
-        order by fansCount desc limit #{hotRankSize};
+        ORDER BY fans_count DESC limit #{hotRankSize};
+    </select>
+    <select id="selectMerchantOfAdmin" resultType="com.taotao.entity.Merchant">
+        SELECT merchant_id, user_id, store_name, fans_count FROM merchant
+            <where>
+                store_name LIKE "%"#{key}"%" AND is_deleted = 0;
+            </where>
     </select>
 
 </mapper>

@@ -22,6 +22,13 @@ public interface MerchantMapper extends BaseMapper<Merchant> {
      * @return 热力榜商家 list
      */
     List<Merchant> selectHotRank(int hotRankSize);
+
+    /**
+     * 管理员查询商家
+     * @param key 关键字
+     * @return 商家 list
+     */
+    List<Merchant> selectMerchantOfAdmin(String key);
 }
 
 

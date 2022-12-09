@@ -30,5 +30,8 @@ public class SystemConstants {
 
     public static final Integer IS_ROOT = 1;
 
-    public static final String QUERY_COMMODITY_ID = "id";
+    public static final String FANS_COUNT_SORT = "fansCountSort";
+    public static final String CREATE_TIME_SORT = "createTimeSort";
+    public static final Integer LIST_FIRST_INDEX = 0;
+    public static final Integer LIST_SECOND_INDEX = 1;
 }
