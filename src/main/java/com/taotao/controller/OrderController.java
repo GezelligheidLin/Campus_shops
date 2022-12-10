@@ -24,14 +24,14 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/save")
-    public Result generateOrder(@RequestBody OrderDTO orderDTO) {
+    public Result<String> generateOrder(@RequestBody OrderDTO orderDTO) {
         log.info("为用户生成订单中。。。");
         orderService.saveOrder(orderDTO);
         return Result.success("购买成功！");
     }
 
     @GetMapping("/view")
-    public Result viewOrder(@RequestParam("userId") Long userId) {
+    public Result<List<OrderVO>> viewOrder(@RequestParam("userId") Long userId) {
         log.info("用户查看订单中。。。");
         List<OrderVO> orderVOList = orderService.observeOrder(userId);
         return Result.success(orderVOList);

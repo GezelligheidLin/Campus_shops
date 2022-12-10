@@ -22,14 +22,14 @@ public interface UserService extends IService<User> {
      * @param phone 电话号码
      * @return  Result
      */
-    Result sendCode(String phone);
+    Result<String> sendCode(String phone);
 
     /**
      * 用户登录功能
      * @param userLoginFormDTO 用户登录信息DTO
      * @return  Result
      */
-    Result login(UserLoginFormDTO userLoginFormDTO);
+    Result<String> login(UserLoginFormDTO userLoginFormDTO);
 
     /**
      * 用户重置手机号码
@@ -38,7 +38,7 @@ public interface UserService extends IService<User> {
      * @param code 验证码
      * @return  Result
      */
-    Result resetPhone(String oldPhone, String phone, String code);
+    Result<String> resetPhone(String oldPhone, String phone, String code);
 
     /**
      * 查询商家热力榜的单个商家所属个人信息

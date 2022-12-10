@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.taotao.dto.PageData;
-import com.taotao.dto.Result;
 import com.taotao.entity.Merchant;
 import com.taotao.entity.User;
 import com.taotao.mapper.MerchantMapper;
@@ -48,7 +47,7 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant>
      * @return 热力榜 list
      */
     @Override
-    public Result queryListHotRandOfUserInfo() {
+    public List<MerchantVO> queryListHotRandOfUserInfo() {
         // 1.查找商家信息
         List<Merchant> merchantList = merchantMapper.selectHotRank(RANK_SIZE);
         // 2.根据查询到的商家去获取 id列表
@@ -73,7 +72,7 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant>
             merchantVOList.add(merchantVO);
         }
         // 6.返回商家热力榜信息
-        return Result.success(merchantVOList);
+        return merchantVOList;
     }
 
 

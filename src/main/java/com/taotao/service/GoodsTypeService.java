@@ -1,8 +1,10 @@
 package com.taotao.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.taotao.dto.Result;
+import com.taotao.entity.Commodity;
 import com.taotao.entity.GoodsType;
+
+import java.util.List;
 
 /**
 * @author YuLong
@@ -15,12 +17,12 @@ public interface GoodsTypeService extends IService<GoodsType> {
      * 查询全部分类图标
      * @return 分类图标 list
      */
-    Result queryAllIcon();
+    List<GoodsType> queryAllIcon();
 
     /**
      * 查询分类淘品
      * @param type 分类
      * @return 分类淘品 list
      */
-    Result queryClassifyGoods(String type);
+    List<Commodity> queryClassifyGoods(String type);
 }

@@ -3,10 +3,14 @@ package com.taotao.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.taotao.dto.AdminDTO;
 import com.taotao.dto.AdminLoginFormDTO;
 import com.taotao.dto.PageData;
 import com.taotao.dto.Result;
+import com.taotao.entity.Admin;
+import com.taotao.entity.Merchant;
+import com.taotao.entity.User;
 import com.taotao.service.AdminService;
 import com.taotao.util.AdminHolder;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +40,7 @@ public class AdminController {
      * @return 通用返回结果
      */
     @GetMapping("/code/{phone}")
-    public Result sendCode(@PathVariable("phone") String phone) {
+    public Result<String> sendCode(@PathVariable("phone") String phone) {
         return adminService.sendCodeOfTel(phone);
     }
 
@@ -46,7 +50,7 @@ public class AdminController {
      * @return 通用返回结果
      */
     @PostMapping("/login")
-    public Result adminLogin(@RequestBody AdminLoginFormDTO adminLoginFormDTO) {
+    public Result<String> adminLogin(@RequestBody AdminLoginFormDTO adminLoginFormDTO) {
         return adminService.loginProcessingFlow(adminLoginFormDTO);
     }
 
@@ -56,7 +60,7 @@ public class AdminController {
      * @return 通用返回结果
      */
     @PostMapping("/register")
-    public Result adminRegister(@RequestBody AdminLoginFormDTO adminLoginFormDTO) {
+    public Result<String> adminRegister(@RequestBody AdminLoginFormDTO adminLoginFormDTO) {
         return adminService.registerProcess(adminLoginFormDTO);
     }
 
@@ -65,9 +69,9 @@ public class AdminController {
      * @return 通用返回结果
      */
     @PostMapping("/logout")
-    public Result logout() {
+    public Result<String> logout() {
         AdminHolder.removeAdmin();
-        return Result.success();
+        return Result.success("退出登录成功");
     }
 
     /**
@@ -75,7 +79,7 @@ public class AdminController {
      * @return 通用返回结果
      */
     @GetMapping("/me")
-    public Result me() {
+    public Result<Admin> me() {
         AdminDTO adminDTO = AdminHolder.getAdmin();
         return Result.success(adminDTO);
     }
@@ -86,7 +90,7 @@ public class AdminController {
      * @return 商家分页
      */
     @PostMapping("/page/merchant")
-    public Result viewMerchantPage(@RequestBody JSONObject jsonObject) {
+    public Result<Page<Merchant>> viewMerchantPage(@RequestBody JSONObject jsonObject) {
         PageData pageData = JSONUtil.toBean(jsonObject, PageData.class);
         log.info("pageData = {}", pageData);
         return Result.success(adminService.viewMerchantOfAdminWithTransmitData(pageData));
@@ -98,15 +102,19 @@ public class AdminController {
      * @return 用户分页
      */
     @PostMapping("/page/user")
-    public Result viewUserPage(@RequestBody JSONObject jsonObject) {
+    public Result<Page<User>> viewUserPage(@RequestBody JSONObject jsonObject) {
         PageData pageData = JSONUtil.toBean(jsonObject, PageData.class);
         log.info("pageData = {}", pageData);
         return Result.success(adminService.viewUserOfAdminWithTransmitData(pageData));
     }
 
-
+    /**
+     * 超级管理员查看管理员（可按关键字搜索）
+     * @param jsonObject json格式 分页信息
+     * @return 管理员分页
+     */
     @PostMapping("/page/admin")
-    public Result viewAdminPage(@RequestBody JSONObject jsonObject) {
+    public Result<Page<Admin>> viewAdminPage(@RequestBody JSONObject jsonObject) {
         log.info("jsonObject = {}", jsonObject);
         PageData pageData = BeanUtil.copyProperties(jsonObject, PageData.class);
         Integer isRoot = BeanUtil.copyProperties(jsonObject, AdminDTO.class).getIsRoot();

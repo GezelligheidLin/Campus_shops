@@ -1,8 +1,9 @@
 package com.taotao.config;
 
+import com.taotao.util.AdminLoginInterceptor;
 import com.taotao.util.AdminRefreshTokenInterceptor;
-import com.taotao.util.LoginInterceptor;
-import com.taotao.util.RefreshTokenInterceptor;
+import com.taotao.util.UserLoginInterceptor;
+import com.taotao.util.UserRefreshTokenInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -22,22 +23,27 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 用户 token刷新拦截器
-        registry.addInterceptor(new RefreshTokenInterceptor(stringRedisTemplate))
+        registry.addInterceptor(new UserRefreshTokenInterceptor(stringRedisTemplate))
                 .addPathPatterns("/**").order(0);
         // 管理员 token刷新拦截器
         registry.addInterceptor(new AdminRefreshTokenInterceptor(stringRedisTemplate))
                         .addPathPatterns("/**").order(1);
-        // 登录拦截器
-        registry.addInterceptor(new LoginInterceptor())
+        // 用户登录拦截器
+        registry.addInterceptor(new UserLoginInterceptor())
                 .excludePathPatterns(
                         // 待添加
                         "/**/**"
                         // "/upload/**",
-                        // "/user/**"
-                        // "/admin/**",
+                        // "/user/**",
                         // "/home/**",
                         // "/goodsType/**",
                         // "/merchant/**"
                 ).order(2);
+        // 管理员登录拦截器
+        registry.addInterceptor(new AdminLoginInterceptor())
+                .excludePathPatterns(
+                        // 待添加
+                        "/**/**"
+                ).order(3);
     }
 }

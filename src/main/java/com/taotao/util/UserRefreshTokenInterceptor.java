@@ -21,11 +21,11 @@ import static com.taotao.util.SystemConstants.AUTHORIZATION;
  * Date: 2022/11/21 16:59
  */
 @Slf4j
-public class RefreshTokenInterceptor implements HandlerInterceptor {
+public class UserRefreshTokenInterceptor implements HandlerInterceptor {
 
     private final StringRedisTemplate stringRedisTemplate;
 
-    public RefreshTokenInterceptor(StringRedisTemplate stringRedisTemplate) {
+    public UserRefreshTokenInterceptor(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 

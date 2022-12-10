@@ -58,7 +58,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
      * @return 通用返回结果
      */
     @Override
-    public Result sendCodeOfTel(String phone) {
+    public Result<String> sendCodeOfTel(String phone) {
         // 1.校验手机号
         if (RegexUtils.isPhoneInvalid(phone)) {
             // 2.如果不符合，返回错误信息
@@ -85,7 +85,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result loginProcessingFlow(AdminLoginFormDTO adminLoginFormDTO) {
+    public Result<String> loginProcessingFlow(AdminLoginFormDTO adminLoginFormDTO) {
         // 1.检验手机号
         String phone = adminLoginFormDTO.getPhone();
         if (RegexUtils.isPhoneInvalid(phone)) {
@@ -99,7 +99,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         if (rawPassword == null || rawPassword.isEmpty() ) {
             // 2.1.验证码登录
             // 2.1.1.在 redis中获取管理员验证码并校验
-            String adminLoginKey = ADMIN_TOKEN_KEY + phone;
+            String adminLoginKey = ADMIN_CODE_KEY + phone;
             String cacheCode = stringRedisTemplate.opsForValue().get(adminLoginKey);
             String code = adminLoginFormDTO.getCode();
             if (cacheCode == null || !cacheCode.equals(code)) {
@@ -109,7 +109,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         } else {
             // 2.2.密码登录
             // 2.2.1.先从redis中查询密码
-            String adminLoginKey = ADMIN_CODE_KEY + adminLoginFormDTO.getId();
+            String adminLoginKey = ADMIN_TOKEN_KEY + adminLoginFormDTO.getId();
             String adminJson = stringRedisTemplate.opsForValue().get(adminLoginKey);
             AdminLoginFormDTO adLogin = JSONUtil.toBean(adminJson, AdminLoginFormDTO.class);
             String encodedPassword = adLogin.getPassword();
@@ -165,7 +165,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
      * @return 通用返回结果
      */
     @Override
-    public Result registerProcess(AdminLoginFormDTO adminLoginFormDTO) {
+    public Result<String> registerProcess(AdminLoginFormDTO adminLoginFormDTO) {
         log.info("adminLoginFormDTO = {}", adminLoginFormDTO);
         Integer isRoot = adminLoginFormDTO.getIsRoot();
         if (!IS_ROOT.equals(isRoot)) {

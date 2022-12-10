@@ -1,7 +1,7 @@
 package com.taotao.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.taotao.dto.Result;
+import com.taotao.entity.Commodity;
 import com.taotao.entity.GoodsType;
 import com.taotao.mapper.GoodsTypeMapper;
 import com.taotao.service.GoodsTypeService;
@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * @author YuLong
@@ -32,8 +33,8 @@ public class GoodsTypeServiceImpl extends ServiceImpl<GoodsTypeMapper, GoodsType
      * @return 分类图标 list
      */
     @Override
-    public Result queryAllIcon() {
-        return Result.success(goodsTypeMapper.selectAllIcon(ICON_SIZE));
+    public List<GoodsType> queryAllIcon() {
+        return goodsTypeMapper.selectAllIcon(ICON_SIZE);
     }
 
     /**
@@ -42,8 +43,8 @@ public class GoodsTypeServiceImpl extends ServiceImpl<GoodsTypeMapper, GoodsType
      * @return 分类淘品 list
      */
     @Override
-    public Result queryClassifyGoods(String type) {
-        return Result.success(goodsTypeMapper.selectClassifyGoods(type, CLASSIFY_GOODS_SIZE));
+    public List<Commodity> queryClassifyGoods(String type) {
+        return goodsTypeMapper.selectClassifyGoods(type, CLASSIFY_GOODS_SIZE);
     }
 }
 

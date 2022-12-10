@@ -9,6 +9,7 @@ import com.taotao.service.UserService;
 import com.taotao.util.IdCardVerification;
 import com.taotao.util.PasswordEncoder;
 import com.taotao.util.UserHolder;
+import com.taotao.vo.UserInfoVO;
 import com.taotao.vo.UserRealVO;
 import com.taotao.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -34,11 +35,12 @@ public class UserController {
 
     /**
      * 发送短信验证码
+     *
      * @param phone 手机号码
      * @return Result
      */
     @GetMapping("/code/{phone}")
-    public Result sendCode(@PathVariable("phone") String phone) {
+    public Result<String> sendCode(@PathVariable("phone") String phone) {
         log.info("phone = {}", phone);
         return userService.sendCode(phone);
     }
@@ -49,7 +51,7 @@ public class UserController {
      * @return Result
      */
     @PostMapping("/login")
-    public Result userLogin(@RequestBody UserLoginFormDTO userLoginFormDTO) {
+    public Result<String> userLogin(@RequestBody UserLoginFormDTO userLoginFormDTO) {
         log.info("user = {}", userLoginFormDTO);
         return userService.login(userLoginFormDTO);
     }
@@ -59,9 +61,9 @@ public class UserController {
      * @return Result
      */
     @PostMapping("/logout")
-    public Result userLogout() {
+    public Result<String> userLogout() {
         UserHolder.removeUser();
-        return Result.success();
+        return Result.success("退出登录成功");
     }
 
     /**
@@ -69,7 +71,7 @@ public class UserController {
      * @return 返回个人页信息
      */
     @GetMapping("/me")
-    public Result me() {
+    public Result<UserVO> me() {
         // 获取当前登录的用户并返回
         UserVO userVO = UserHolder.getUser();
         log.info("userVO = {}", userVO);
@@ -82,7 +84,7 @@ public class UserController {
      * @return 用户常规信息
      */
     @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") Long userId) {
+    public Result<UserInfoVO> info(@PathVariable("id") Long userId) {
         // 查询详情
         User info = userService.getById(userId);
         if (info == null) {
@@ -90,9 +92,9 @@ public class UserController {
             return Result.success();
         }
         // 仅展示必要信息
-        UserInfoDTO userinfoDTO = BeanUtil.copyProperties(info, UserInfoDTO.class);
+        UserInfoVO userInfoVO = BeanUtil.copyProperties(info, UserInfoVO.class);
         // 返回用户常规信息
-        return Result.success(userinfoDTO);
+        return Result.success(userInfoVO);
     }
 
     /**
@@ -101,7 +103,7 @@ public class UserController {
      * @return 用户实名信息
      */
     @GetMapping("/viewReal/{id}")
-    public Result viewReal(@PathVariable("id") Long userId) {
+    public Result<UserRealVO> viewReal(@PathVariable("id") Long userId) {
         // 先根据 userId查出该用户的所有信息
         User info = userService.getById(userId);
         // 判断该用户是否存在
@@ -120,9 +122,9 @@ public class UserController {
      * @return Result
      */
     @PutMapping("/update")
-    public Result updateUserInfo(@RequestBody UserInfoDTO userInfoDTO) {
+    public Result<String> updateUserInfo(@RequestBody UserInfoDTO userInfoDTO) {
         log.info("用户常规信息修改。。。");
-        Result res = verifyUserInfo(userInfoDTO);
+        Result<String> res = verifyUserInfo(userInfoDTO);
         // 不为空代表 需要返回修改信息失败结果 or 修改信息项为密码且已通过原密码验证
         if (res != null) {
             // fail
@@ -149,7 +151,7 @@ public class UserController {
      * @return Result
      */
     @PutMapping("/realInfo")
-    public Result writeRealInfo(@RequestBody UserRealVO userRealVO) {
+    public Result<String> writeRealInfo(@RequestBody UserRealVO userRealVO) {
         log.info("用户正在实名认证中。。。");
         String cardId = userRealVO.getCardId();
         String idMessage = IdCardVerification.idCardValidate(cardId);
@@ -167,7 +169,7 @@ public class UserController {
      * @param userInfoDTO 用户个人信息DTO
      * @return Result
      */
-    private Result verifyUserInfo(UserInfoDTO userInfoDTO) {
+    private Result<String> verifyUserInfo(UserInfoDTO userInfoDTO) {
         // userId用于校验密码时查询数据库
         Long userId = userInfoDTO.getUserId();
         // 由于在前端中该模块是单值修改，传参时 userInfoDTO中 以下五项只有一个不为空
@@ -194,7 +196,7 @@ public class UserController {
             if (phone == null || code == null) {
                 return Result.fail("手机号或验证码错误！");
             }
-            Result res = userService.resetPhone(oldPhone, phone, code);
+            Result<String> res = userService.resetPhone(oldPhone, phone, code);
             // 不存在则直接返回 fail
             if (res.getErrorMsg() != null) {
                 return res;

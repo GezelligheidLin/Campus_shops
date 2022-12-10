@@ -51,7 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * @return  Result
      */
     @Override
-    public Result sendCode(String phone) {
+    public Result<String> sendCode(String phone) {
         // 1.校验手机号
         if (RegexUtils.isPhoneInvalid(phone)) {
             // 2.如果不符合，返回错误信息
@@ -67,7 +67,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         // 5.发送验证码
         log.debug("发送短信验证码成功，验证码：{}", authCode);
         // 返回 success
-        return Result.success();
+        return Result.success("验证码短信发送成功");
     }
 
     /**
@@ -76,7 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * @return  Result
      */
     @Override
-    public Result login(UserLoginFormDTO userLoginFormDTO) {
+    public Result<String> login(UserLoginFormDTO userLoginFormDTO) {
         // 1.校验手机号
         String phone = userLoginFormDTO.getPhone();
         String authCode = userLoginFormDTO.getCode();
@@ -123,7 +123,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * @return  Result
      */
     @Override
-    public Result resetPhone(String oldPhone, String phone, String code) {
+    public Result<String> resetPhone(String oldPhone, String phone, String code) {
         // 校验手机号
         if (RegexUtils.isPhoneInvalid(oldPhone)) {
             return Result.fail("手机格式不正确");
@@ -147,7 +147,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (repeatPhone != null) {
             return Result.fail("该手机号已注册！");
         }
-        return Result.success();
+        return Result.success("信息校验通过");
     }
 
     /**

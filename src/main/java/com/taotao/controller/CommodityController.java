@@ -29,35 +29,35 @@ public class CommodityController {
     private CommodityService commodityService;
 
     @GetMapping("/carousel")
-    public Result searchCommodityCarousel() {
+    public Result<List<Commodity>> searchCommodityCarousel() {
         log.info("首页淘品轮播图查询。。。");
         List<Commodity> commodityList = commodityService.queryCarousel();
         return Result.success(entityConvertToVO(commodityList));
     }
 
     @GetMapping("/recommend")
-    public Result searchCommodityRecommend() {
+    public Result<List<Commodity>> searchCommodityRecommend() {
         log.info("首页淘品甄选推荐查询。。。");
         List<Commodity> commodityList = commodityService.queryRecommend();
         return Result.success(entityConvertToVO(commodityList));
     }
 
     @GetMapping("/area")
-    public Result searchCommodityArea() {
+    public Result<List<Commodity>> searchCommodityArea() {
         log.info("首页各大专区选购查询。。。");
         List<Commodity> commodityList = commodityService.queryArea();
         return Result.success(entityConvertToVO(commodityList));
     }
 
     @GetMapping("/like")
-    public Result searchCommodityLike() {
+    public Result<List<Commodity>> searchCommodityLike() {
         log.info("首页淘品猜你喜欢查询。。。");
         List<Commodity> commodityList = commodityService.queryLike();
         return Result.success(entityConvertToVO(commodityList));
     }
 
     @GetMapping("/seek")
-    public Result searchCommodityKeyword(String key) {
+    public Result<List<Commodity>> searchCommodityKeyword(String key) {
         log.info("首页商品搜索查询。。。");
         if (key == null || key.isEmpty()) {
             return Result.fail("请输入搜索关键字");

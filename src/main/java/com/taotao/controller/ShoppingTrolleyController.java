@@ -27,7 +27,7 @@ public class ShoppingTrolleyController {
     private ShoppingTrolleyService trolleyService;
 
     @GetMapping("/show")
-    public Result searchTrolley(Long userId) {
+    public Result<ShoppingTrolleyVO> searchTrolley(Long userId) {
         log.info("查询用户购物车。。。");
         ShoppingTrolley trolley = trolleyService.queryTrolley(userId);
         // 取出trolley中的所有商品（String型）
@@ -45,12 +45,12 @@ public class ShoppingTrolleyController {
     }
 
     @PutMapping("/update")
-    public Result alterTrolley(@RequestBody JSONObject jsonObject) {
+    public Result<String> alterTrolley(@RequestBody JSONObject jsonObject) {
         log.info("用户购物车商品更新中。。。");
         ShoppingTrolleyVO trolleyVO = JSONUtil.toBean(jsonObject, ShoppingTrolleyVO.class);
         ShoppingTrolley trolley = BeanUtil.copyProperties(trolleyVO, ShoppingTrolley.class);
         log.info("trolley = {}", trolley);
         trolleyService.modifyTrolley(trolley);
-        return Result.success();
+        return Result.success("您的购物车已更新");
     }
 }

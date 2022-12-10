@@ -22,21 +22,21 @@ public interface AdminService extends IService<Admin> {
      * @param phone 手机号码
      * @return Result
      */
-    Result sendCodeOfTel(String phone);
+    Result<String> sendCodeOfTel(String phone);
 
     /**
      * 管理员登录处理流程
      * @param adminLoginFormDTO 管理员登录DTO
      * @return Result
      */
-    Result loginProcessingFlow(AdminLoginFormDTO adminLoginFormDTO);
+    Result<String> loginProcessingFlow(AdminLoginFormDTO adminLoginFormDTO);
 
     /**
      * 管理员注册流程
      * @param adminLoginFormDTO 管理员登录DTO
      * @return Result
      */
-    Result registerProcess(AdminLoginFormDTO adminLoginFormDTO);
+    Result<String> registerProcess(AdminLoginFormDTO adminLoginFormDTO);
 
     /**
      * 管理员查询商家（数据传输 adminService -> merchantService）

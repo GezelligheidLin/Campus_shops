@@ -10,6 +10,7 @@ import lombok.Data;
 public class AdminDTO {
     private Long adminId;
     private String realName;
+    private String adminIcon;
     private String sex;
     private Integer status;
     private Integer isRoot;
