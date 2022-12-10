@@ -3,12 +3,15 @@ package com.taotao.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.taotao.dto.AdminDTO;
 import com.taotao.dto.AdminLoginFormDTO;
 import com.taotao.dto.PageData;
 import com.taotao.dto.Result;
 import com.taotao.entity.Admin;
 import com.taotao.entity.Merchant;
 import com.taotao.entity.User;
+import com.taotao.vo.MerchantVO;
+import com.taotao.vo.UserVO;
 
 
 /**
@@ -58,4 +61,22 @@ public interface AdminService extends IService<Admin> {
      * @return 管理员分页
      */
     Page<Admin> viewAdmin(PageData pageData);
+
+    /**
+     * 管理员修改商家状态中间传输方法（数据传输 adminService -> merchantService）
+     * @param merchantVO 商家状态信息
+     */
+    void modifyMerchantStatusOfAdminWithTransmitData(MerchantVO merchantVO);
+
+    /**
+     * 管理员修改用户状态中间传输方法（数据传输 adminService -> userService）
+     * @param userVO 用户状态信息
+     */
+    void modifyUserStatusOfAdminWithTransmitData(UserVO userVO);
+
+    /**
+     * 超级管理员修改管理员状态
+     * @param adminDTO 管理员状态信息
+     */
+    void modifyAdminStatus(AdminDTO adminDTO);
 }

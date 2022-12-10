@@ -1,6 +1,7 @@
 package com.taotao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.taotao.dto.AdminDTO;
 import com.taotao.entity.Admin;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +14,11 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AdminMapper extends BaseMapper<Admin> {
 
+    /**
+     * 超级管理员修改管理员状态
+     * @param adminDTO 管理员状态信息
+     */
+    void updateAdminStatus(AdminDTO adminDTO);
 }
 
 

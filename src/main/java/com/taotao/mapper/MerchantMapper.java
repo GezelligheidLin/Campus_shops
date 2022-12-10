@@ -2,6 +2,7 @@ package com.taotao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.taotao.entity.Merchant;
+import com.taotao.vo.MerchantVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -29,6 +30,12 @@ public interface MerchantMapper extends BaseMapper<Merchant> {
      * @return 商家 list
      */
     List<Merchant> selectMerchantOfAdmin(String key);
+
+    /**
+     * 管理员更新商家状态
+     * @param merchantVO 商家状态信息
+     */
+    void updateMerchantStatus(MerchantVO merchantVO);
 }
 
 

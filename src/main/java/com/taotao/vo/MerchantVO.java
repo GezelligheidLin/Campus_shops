@@ -9,8 +9,10 @@ import lombok.Data;
 @Data
 public class MerchantVO {
     private Long userId;
+    private Long merchantId;
     private String nickName;
     private String icon;
     private String fans;
     private Long fansCount;
+    private Integer status;
 }

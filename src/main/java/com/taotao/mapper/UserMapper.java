@@ -3,6 +3,7 @@ package com.taotao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.taotao.entity.User;
+import com.taotao.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -55,6 +56,12 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 数据库中的密码
      */
     String selectPasswordOfDatabase(Long userId);
+
+    /**
+     * 管理员更新用户状态
+     * @param userVO 用户状态信息
+     */
+    void updateUserStatus(UserVO userVO);
 }
 
 

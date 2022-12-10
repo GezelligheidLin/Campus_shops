@@ -13,13 +13,15 @@ import com.taotao.entity.Merchant;
 import com.taotao.entity.User;
 import com.taotao.service.AdminService;
 import com.taotao.util.AdminHolder;
+import com.taotao.vo.MerchantVO;
+import com.taotao.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Objects;
 
-import static com.taotao.util.SystemConstants.IS_ROOT;
+import static com.taotao.util.SystemConstants.*;
 
 /**
  * @author YuLong
@@ -91,8 +93,8 @@ public class AdminController {
      */
     @PostMapping("/page/merchant")
     public Result<Page<Merchant>> viewMerchantPage(@RequestBody JSONObject jsonObject) {
+        log.info("管理员查看商家中。。。");
         PageData pageData = JSONUtil.toBean(jsonObject, PageData.class);
-        log.info("pageData = {}", pageData);
         return Result.success(adminService.viewMerchantOfAdminWithTransmitData(pageData));
     }
 
@@ -103,8 +105,8 @@ public class AdminController {
      */
     @PostMapping("/page/user")
     public Result<Page<User>> viewUserPage(@RequestBody JSONObject jsonObject) {
+        log.info("管理员查看用户中。。。");
         PageData pageData = JSONUtil.toBean(jsonObject, PageData.class);
-        log.info("pageData = {}", pageData);
         return Result.success(adminService.viewUserOfAdminWithTransmitData(pageData));
     }
 
@@ -115,7 +117,7 @@ public class AdminController {
      */
     @PostMapping("/page/admin")
     public Result<Page<Admin>> viewAdminPage(@RequestBody JSONObject jsonObject) {
-        log.info("jsonObject = {}", jsonObject);
+        log.info("超级管理员查看管理员中。。。");
         PageData pageData = BeanUtil.copyProperties(jsonObject, PageData.class);
         Integer isRoot = BeanUtil.copyProperties(jsonObject, AdminDTO.class).getIsRoot();
         if (!Objects.equals(isRoot, IS_ROOT)) {
@@ -124,5 +126,68 @@ public class AdminController {
         return Result.success(adminService.viewAdmin(pageData));
     }
 
+    /**
+     * 修改商家状态（启用禁用）
+     * @param merchantVO 商家状态信息
+     * @return Result
+     */
+    @PutMapping("/status/merchant")
+    public Result<String> changeMerchantStatus(@RequestBody MerchantVO merchantVO) {
+        log.info("修改商家状态中。。。");
+        Integer status = merchantVO.getStatus();
+        Result<String> stringResult = estimateStatus(status);
+        if (stringResult.getErrorMsg() != null) {
+            return stringResult;
+        }
+        adminService.modifyMerchantStatusOfAdminWithTransmitData(merchantVO);
+        return stringResult;
+    }
 
+    /**
+     * 修改用户状态（启用禁用）
+     * @param userVO 用户状态信息
+     * @return Result
+     */
+    @PutMapping("/status/user")
+    public Result<String> changeUserStatus(@RequestBody UserVO userVO) {
+        log.info("修改用户状态中。。。");
+        Integer status = userVO.getStatus();
+        Result<String> stringResult = estimateStatus(status);
+        if (stringResult.getErrorMsg() != null) {
+            return stringResult;
+        }
+        adminService.modifyUserStatusOfAdminWithTransmitData(userVO);
+        return stringResult;
+    }
+
+    /**
+     * 超级管理员修改管理员状态（启用禁用）
+     * @param adminDTO 管理员状态信息
+     * @return Result
+     */
+    @PutMapping("/status/admin")
+    public Result<String> changeUserStatus(@RequestBody AdminDTO adminDTO) {
+        log.info("超级管理员修改管理员状态中。。。");
+        Integer status = adminDTO.getStatus();
+        Integer isRoot = adminDTO.getIsRoot();
+        Result<String> stringResult = estimateStatus(status);
+        if (stringResult.getErrorMsg() != null) {
+            return stringResult;
+        }
+        if (Objects.equals(isRoot, TRUE)) {
+            log.info("不能禁用超级管理员");
+            return Result.fail("您不能禁用尊贵的超级管理员！");
+        }
+        adminService.modifyAdminStatus(adminDTO);
+        return stringResult;
+    }
+
+    private Result<String> estimateStatus(Integer status) {
+        String statusMessage;
+        if (!Objects.equals(status, FALSE) && !status.equals(TRUE)) {
+            return Result.fail("传入状态参数值有误，修改状态失败！");
+        }
+        statusMessage = Objects.equals(status, FALSE) ? "禁用成功！" : "启用成功！";
+        return Result.success(statusMessage);
+    }
 }

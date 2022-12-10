@@ -7,6 +7,7 @@ import com.taotao.dto.PageData;
 import com.taotao.dto.Result;
 import com.taotao.dto.UserLoginFormDTO;
 import com.taotao.entity.User;
+import com.taotao.vo.UserVO;
 
 import java.util.List;
 
@@ -79,4 +80,10 @@ public interface UserService extends IService<User> {
      * @return 用户分页
      */
     Page<User> queryUserOfAdmin(PageData pageData);
+
+    /**
+     * 管理员修改用户状态
+     * @param userVO 用户状态信息
+     */
+    void modifyUserStatusOfAdmin(UserVO userVO);
 }

@@ -28,4 +28,10 @@ public interface MerchantService extends IService<Merchant> {
      * @return 商家分页
      */
     Page<Merchant> queryMerchantOfAdmin(PageData pageData);
+
+    /**
+     * 管理员修改商家状态
+     * @param merchantVO 商家状态信息
+     */
+    void modifyMerchantStatusOfAdmin(MerchantVO merchantVO);
 }

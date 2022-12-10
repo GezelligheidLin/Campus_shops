@@ -21,6 +21,8 @@ import com.taotao.service.MerchantService;
 import com.taotao.service.UserService;
 import com.taotao.util.PasswordEncoder;
 import com.taotao.util.RegexUtils;
+import com.taotao.vo.MerchantVO;
+import com.taotao.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -45,6 +47,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+
+    @Resource
+    private AdminMapper adminMapper;
 
     @Resource
     private MerchantService merchantService;
@@ -251,6 +256,33 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     }
 
     /**
+     * 管理员修改商家状态中间传输方法（数据传输 adminService -> merchantService）
+     * @param merchantVO 商家状态信息
+     */
+    @Override
+    public void modifyMerchantStatusOfAdminWithTransmitData(MerchantVO merchantVO) {
+        merchantService.modifyMerchantStatusOfAdmin(merchantVO);
+    }
+
+    /**
+     * 管理员修改用户状态中间传输方法（数据传输 adminService -> userService）
+     * @param userVO 用户状态信息
+     */
+    @Override
+    public void modifyUserStatusOfAdminWithTransmitData(UserVO userVO) {
+        userService.modifyUserStatusOfAdmin(userVO);
+    }
+
+    /**
+     * 超级管理员修改管理员状态
+     * @param adminDTO 管理员状态信息
+     */
+    @Override
+    public void modifyAdminStatus(AdminDTO adminDTO) {
+        adminMapper.updateAdminStatus(adminDTO);
+    }
+
+    /**
      * 随机生成初始化强密码
      * @return 生成密码
      */
@@ -261,7 +293,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         password = subPassword(password);
         return password;
     }
-
 
     /**
      * 截断密码为 16位

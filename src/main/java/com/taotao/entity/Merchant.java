@@ -49,6 +49,9 @@ public class Merchant implements Serializable {
     @TableField(value = "fans_count")
     private Long fansCount;
 
+    @TableField(value = "status")
+    private Integer status;
+
     /**
      * 创建时间
      */

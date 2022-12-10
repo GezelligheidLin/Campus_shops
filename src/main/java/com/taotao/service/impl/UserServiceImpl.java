@@ -230,6 +230,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return pageInfo;
     }
 
+    /**
+     * 管理员修改用户状态
+     * @param userVO 用户状态信息
+     */
+    @Override
+    public void modifyUserStatusOfAdmin(UserVO userVO) {
+        userMapper.updateUserStatus(userVO);
+    }
+
     private User createWithPhone(String phone) {
         // 用户昵称 = 固定前缀 + 随机后缀字符串
         String nickName = USER_NICK_NAME_PREFIX + RandomUtil.randomString(USER_NICK_AFTER_DIGIT);

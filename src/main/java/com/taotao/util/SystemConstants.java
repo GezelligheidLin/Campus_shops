@@ -13,6 +13,8 @@ public class SystemConstants {
 
     public static final String AUTH_PHONE = "phone";
     public static final String AUTH_PASSWORD = "password";
+    public static final Integer TRUE = 1;
+    public static final Integer FALSE = 0;
 
     public static final int NOT_AUTH_CODE = 401;
 

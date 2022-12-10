@@ -3,11 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.taotao.mapper.MerchantMapper">
-
+    <!-- 查询模块 -->
     <select id="selectHotRank" resultType="com.taotao.entity.Merchant">
-        SELECT user_id, fans_count
+        SELECT merchant_id, user_id, fans_count
         FROM merchant
-        WHERE is_deleted = 0
+        WHERE status = 1 AND is_deleted = 0
         ORDER BY fans_count DESC LIMIT #{hotRankSize};
     </select>
     <select id="selectMerchantOfAdmin" resultType="com.taotao.entity.Merchant">
@@ -17,4 +17,12 @@
             </where>
     </select>
 
+    <!-- 更新模块 -->
+    <update id="updateMerchantStatus">
+        UPDATE merchant
+        <set>
+            status = #{status}
+        </set>
+        WHERE merchant_id = #{merchantId} AND status != #{status} AND is_deleted = 0;
+    </update>
 </mapper>

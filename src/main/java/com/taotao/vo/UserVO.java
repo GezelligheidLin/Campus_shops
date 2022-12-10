@@ -11,4 +11,5 @@ public class UserVO {
     private Long userId;
     private String nickName;
     private String icon;
+    private Integer status;
 }

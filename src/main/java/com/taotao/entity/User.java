@@ -81,6 +81,12 @@ public class User implements Serializable {
     private String icon;
 
     /**
+     * 用户状态
+     */
+    @TableField(value = "status")
+    private Integer status;
+
+    /**
      * 创建时间
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)

@@ -75,8 +75,6 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant>
         return merchantVOList;
     }
 
-
-
     /**
      * 管理员查询商家 （adminService调用该方法）
      * @param pageData 分页信息
@@ -110,6 +108,15 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant>
         page(pageInfo, queryWrapper);
         // 返回分页数据
         return pageInfo;
+    }
+
+    /**
+     * 管理员修改商家状态
+     * @param merchantVO 商家状态信息
+     */
+    @Override
+    public void modifyMerchantStatusOfAdmin(MerchantVO merchantVO) {
+        merchantMapper.updateMerchantStatus(merchantVO);
     }
 }
 
