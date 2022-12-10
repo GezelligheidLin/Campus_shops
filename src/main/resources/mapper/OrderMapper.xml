@@ -6,9 +6,10 @@
 
     <!-- 插入模块 -->
     <insert id="createOrder">
-        INSERT INTO `order` SET order_id = #{orderId},
-                                user_id = #{userId},
-                                commodity_id = #{commodityId};
+        INSERT INTO `order` SET order_id = #{orderId}, user_id = #{userId},
+               commodity_id = #{commodityId}, buy_quantity = #{buyQuantity},
+               order_cost = #{orderCost}, create_time = #{createTime},
+               update_time = #{updateTime};
     </insert>
 
     <!-- 查询模块 -->

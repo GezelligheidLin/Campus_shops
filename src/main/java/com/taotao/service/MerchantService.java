@@ -4,7 +4,9 @@ package com.taotao.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.taotao.dto.PageData;
+import com.taotao.dto.Result;
 import com.taotao.entity.Merchant;
+import com.taotao.vo.CommodityVO;
 import com.taotao.vo.MerchantVO;
 
 import java.util.List;
@@ -34,4 +36,11 @@ public interface MerchantService extends IService<Merchant> {
      * @param merchantVO 商家状态信息
      */
     void modifyMerchantStatusOfAdmin(MerchantVO merchantVO);
+
+    /**
+     * 保存淘品信息中间传输方法（数据传输 adminService -> merchantService）
+     * @param commodityVO 淘品视图对象
+     * @return Result
+     */
+    Result<String> saveGoodsOfMerchantWithTransmitData(CommodityVO commodityVO);
 }

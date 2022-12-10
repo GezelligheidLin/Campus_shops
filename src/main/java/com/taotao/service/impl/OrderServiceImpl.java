@@ -1,5 +1,6 @@
 package com.taotao.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.taotao.dto.OrderDTO;
@@ -10,6 +11,7 @@ import com.taotao.vo.OrderVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,11 +32,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
      */
     @Override
     public void saveOrder(OrderDTO orderDTO) {
+        Order order = BeanUtil.copyProperties(orderDTO, Order.class);
         UUID uuid = UUID.randomUUID();
-        String orderId = String.valueOf(uuid);
-        Long userId = orderDTO.getUserId();
-        Long commodityId = orderDTO.getCommodityId();
-        orderMapper.createOrder(orderId, userId, commodityId);
+        order.setOrderId(String.valueOf(uuid));
+        order.setCreateTime(LocalDateTime.now());
+        order.setUpdateTime(LocalDateTime.now());
+        orderMapper.createOrder(order);
     }
 
     /**

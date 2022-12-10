@@ -2,7 +2,9 @@ package com.taotao.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.taotao.dto.Result;
 import com.taotao.entity.Commodity;
+import com.taotao.vo.CommodityVO;
 
 import java.util.List;
 
@@ -43,4 +45,11 @@ public interface CommodityService extends IService<Commodity> {
      * @return 商品 list
      */
     List<Commodity> queryKeyword(String key);
+
+    /**
+     * 保存淘品信息
+     * @param commodityVO 淘品视图对象
+     * @return Result
+     */
+    Result<String> saveGoods(CommodityVO commodityVO);
 }

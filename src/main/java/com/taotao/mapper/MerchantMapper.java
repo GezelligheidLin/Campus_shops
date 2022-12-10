@@ -11,7 +11,7 @@ import java.util.List;
 * @author YuLong
 * @description 针对表【merchant(商家表)】的数据库操作Mapper
 * @createDate 2022-11-21 14:07:39
-* @Entity taotao.entity.Merchant
+* @Entity com.taotao.entity.Merchant
 */
 @Mapper
 public interface MerchantMapper extends BaseMapper<Merchant> {

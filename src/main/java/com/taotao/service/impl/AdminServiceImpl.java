@@ -216,7 +216,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     }
 
     /**
-     * 管理员查询用户（数据传输 adminService -> userService）
+     * 管理员查询用户中间传输方法（数据传输 adminService -> userService）
      * @param pageData 分页信息
      * @return 用户分页
      */

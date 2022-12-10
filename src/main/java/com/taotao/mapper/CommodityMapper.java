@@ -2,6 +2,7 @@ package com.taotao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.taotao.entity.Commodity;
+import com.taotao.vo.CommodityVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 * @author YuLong
 * @description 针对表【commodity(商品表)】的数据库操作Mapper
 * @createDate 2022-11-21 14:07:27
-* @Entity taotao.entity.Commodity
+* @Entity com.taotao.entity.Commodity
 */
 @Mapper
 public interface CommodityMapper extends BaseMapper<Commodity> {
@@ -49,6 +50,19 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
      * @return 商品 list
      */
     List<Commodity> selectKeyword(String key);
+
+    /**
+     * 根据淘品名查询淘品
+     * @param commodityName 淘品名
+     * @return 淘品
+     */
+    Commodity selectNameOfCommodity(String commodityName);
+
+    /**
+     * 插入淘品信息
+     * @param commodityVO 淘品视图对象
+     */
+    void insertGoods(CommodityVO commodityVO);
 }
 
 

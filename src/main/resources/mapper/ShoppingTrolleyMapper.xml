@@ -14,7 +14,13 @@
                 amount = #{amount},
             </if>
             <if test="totalPrice != null and totalPrice != ''">
-                total_price = #{totalPrice}
+                total_price = #{totalPrice},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_Time = #{updateTime}
             </if>
         </set>
         WHERE user_id = #{userId} AND is_deleted = 0;

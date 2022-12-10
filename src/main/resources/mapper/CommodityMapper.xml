@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.taotao.mapper.CommodityMapper">
-
+    <!-- 查询模块 -->
     <select id="selectCarousel" resultType="com.taotao.entity.Commodity">
         SELECT commodity_id, commodity_name, image, description, detail,
                price, evaluate, commodity_type, merchant_id
@@ -36,4 +36,19 @@
             commodity_name LIKE "%"#{key}"%";
         </if>
     </select>
+
+    <select id="selectNameOfCommodity" resultType="com.taotao.entity.Commodity">
+        SELECT commodity_id, commodity_name, image, description, detail,
+        price, evaluate, commodity_type, merchant_id
+        FROM commodity WHERE commodity_name = #{commodityName};
+    </select>
+
+
+    <!-- 插入模块 -->
+    <insert id="insertGoods">
+        INSERT commodity SET commodity_id = #{commodityId},
+            commodity_name = #{commodityName}, description = #{description},
+            detail = #{detail}, price = #{price}, evaluate = #{evaluate},
+            commodity_type = #{commodityType}, merchant_id = #{merchantId};
+    </insert>
 </mapper>

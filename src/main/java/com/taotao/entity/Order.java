@@ -23,7 +23,7 @@ public class Order implements Serializable {
      * 主键
      */
     @TableId(value = "order_id")
-    private Long orderId;
+    private String orderId;
 
     /**
      * 用户账号
@@ -35,13 +35,19 @@ public class Order implements Serializable {
      * 商品序列号
      */
     @TableField(value = "commodity_id")
-    private String commodityId;
+    private Long commodityId;
 
     /**
      * 购买商品数量
      */
     @TableField(value = "buy_quantity")
     private Long buyQuantity;
+
+    /**
+     * 订单花费
+     */
+    @TableField(value = "order_cost")
+    private Long orderCost;
 
     /**
      * 创建时间

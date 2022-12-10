@@ -6,11 +6,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.taotao.dto.PageData;
+import com.taotao.dto.Result;
 import com.taotao.entity.Merchant;
 import com.taotao.entity.User;
 import com.taotao.mapper.MerchantMapper;
+import com.taotao.service.CommodityService;
 import com.taotao.service.MerchantService;
 import com.taotao.service.UserService;
+import com.taotao.vo.CommodityVO;
 import com.taotao.vo.MerchantVO;
 import com.taotao.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +42,9 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant>
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private CommodityService commodityService;
 
     private final static int RANK_SIZE = 20;
 
@@ -117,6 +123,16 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant>
     @Override
     public void modifyMerchantStatusOfAdmin(MerchantVO merchantVO) {
         merchantMapper.updateMerchantStatus(merchantVO);
+    }
+
+    /**
+     * 保存淘品信息中间传输方法（数据传输 adminService -> merchantService）
+     * @param commodityVO 淘品视图对象
+     * @return Result
+     */
+    @Override
+    public Result<String> saveGoodsOfMerchantWithTransmitData(CommodityVO commodityVO) {
+        return commodityService.saveGoods(commodityVO);
     }
 }
 

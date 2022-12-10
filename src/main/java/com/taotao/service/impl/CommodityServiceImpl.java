@@ -1,14 +1,20 @@
 package com.taotao.service.impl;
 
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.taotao.dto.Result;
 import com.taotao.entity.Commodity;
 import com.taotao.mapper.CommodityMapper;
 import com.taotao.service.CommodityService;
+import com.taotao.vo.CommodityVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+import static com.taotao.util.SystemConstants.LONG_RANDOM_START;
 
 /**
 * @author YuLong
@@ -74,6 +80,25 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         return commodityMapper.selectKeyword(key);
     }
 
+    /**
+     * 保存淘品信息
+     * @param commodityVO 淘品视图对象
+     */
+    @Override
+    public Result<String> saveGoods(CommodityVO commodityVO) {
+        String commodityName = commodityVO.getCommodityName();
+        // 先查询待上架淘品是否已存在（不能同名）
+        Commodity checkCommodity = commodityMapper.selectNameOfCommodity(commodityName);
+        // 若存在，则返回失败
+        if (checkCommodity != null) {
+            return Result.fail("商城上已有同款淘品，无法上架！");
+        }
+        long commodityId = RandomUtil.randomLong(LONG_RANDOM_START, Long.MAX_VALUE);
+        commodityVO.setCommodityId(commodityId);
+        Commodity commodity = BeanUtil.copyProperties(commodityVO, Commodity.class);
+        save(commodity);
+        return Result.success("淘品上架成功！");
+    }
 }
 
 

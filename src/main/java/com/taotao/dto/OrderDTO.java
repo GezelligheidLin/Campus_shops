@@ -10,4 +10,6 @@ import lombok.Data;
 public class OrderDTO {
     private Long userId;
     private Long commodityId;
+    private Long buyQuantity;
+    private Long orderCost;
 }

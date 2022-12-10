@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taotao.mapper.ApplyMapper">
+
+    <!-- 查询模块 -->
+    <select id="selectApplyRecord" resultType="com.taotao.entity.Apply">
+        SELECT apply_id, user_id, is_passed, enable FROM apply
+        WHERE user_id = #{userId};
+    </select>
+
+
+    <!-- 插入模块 -->
+    <insert id="insertUserApply">
+        INSERT apply set apply_id = #{applyId}, user_id = #{userId};
+    </insert>
+</mapper>
