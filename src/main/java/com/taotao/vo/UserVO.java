@@ -12,4 +12,5 @@ public class UserVO {
     private String nickName;
     private String icon;
     private Integer status;
+    private Integer isMerchant;
 }

@@ -9,6 +9,7 @@ import com.taotao.dto.AdminLoginFormDTO;
 import com.taotao.dto.PageData;
 import com.taotao.dto.Result;
 import com.taotao.entity.Admin;
+import com.taotao.entity.Apply;
 import com.taotao.entity.Merchant;
 import com.taotao.entity.User;
 import com.taotao.service.AdminService;
@@ -180,6 +181,21 @@ public class AdminController {
         }
         adminService.modifyAdminStatus(adminDTO);
         return stringResult;
+    }
+
+    @PostMapping("/page/apply")
+    public Result<Page<Apply>> viewApplyPage(@RequestBody JSONObject jsonObject) {
+        log.info("管理员查看用户申请商家权限中。。。");
+        PageData pageData = JSONUtil.toBean(jsonObject, PageData.class);
+        return Result.success(adminService.viewApplyOfAdminWithTransmitData(pageData));
+    }
+
+    @PutMapping("/audit")
+    public Result<String> auditApply(@RequestBody Apply apply) {
+        log.info("管理员审核用户申请商家权限中。。。");
+        // TODO
+        // apply
+        return Result.fail("");
     }
 
     private Result<String> estimateStatus(Integer status) {

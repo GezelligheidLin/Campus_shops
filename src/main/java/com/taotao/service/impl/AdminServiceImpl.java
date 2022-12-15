@@ -13,10 +13,12 @@ import com.taotao.dto.AdminLoginFormDTO;
 import com.taotao.dto.PageData;
 import com.taotao.dto.Result;
 import com.taotao.entity.Admin;
+import com.taotao.entity.Apply;
 import com.taotao.entity.Merchant;
 import com.taotao.entity.User;
 import com.taotao.mapper.AdminMapper;
 import com.taotao.service.AdminService;
+import com.taotao.service.ApplyService;
 import com.taotao.service.MerchantService;
 import com.taotao.service.UserService;
 import com.taotao.util.PasswordEncoder;
@@ -57,6 +59,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Resource
     private UserService userService;
 
+    @Resource
+    private ApplyService applyService;
+
     /**
      * 发送短信验证码
      * @param phone 手机号码
@@ -69,7 +74,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
             // 2.如果不符合，返回错误信息
             return Result.fail("手机号码格式不正确");
         }
-        //
         // 3.符合，生成验证码
         String authCode = RandomUtil.randomNumbers(AUTH_CODE_LENGTH);
         // 4.保存验证码到 redis
@@ -206,7 +210,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     }
 
     /**
-     * 管理员查询商家中间传输方法（数据传输 adminService -> merchantService）
+     * 管理员查询商家分页中间传输方法（数据传输 adminService -> merchantService）
      * @param pageData 分页信息
      * @return 商家分页
      */
@@ -216,7 +220,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     }
 
     /**
-     * 管理员查询用户中间传输方法（数据传输 adminService -> userService）
+     * 管理员查询用户分页中间传输方法（数据传输 adminService -> userService）
      * @param pageData 分页信息
      * @return 用户分页
      */
@@ -280,6 +284,16 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Override
     public void modifyAdminStatus(AdminDTO adminDTO) {
         adminMapper.updateAdminStatus(adminDTO);
+    }
+
+    /**
+     * 管理员查询申请分页中间传输方法（数据传输 adminService -> applyService）
+     * @param pageData 分页信息
+     * @return 申请分页
+     */
+    @Override
+    public Page<Apply> viewApplyOfAdminWithTransmitData(PageData pageData) {
+        return applyService.queryApplyPage(pageData);
     }
 
     /**

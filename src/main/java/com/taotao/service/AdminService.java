@@ -8,6 +8,7 @@ import com.taotao.dto.AdminLoginFormDTO;
 import com.taotao.dto.PageData;
 import com.taotao.dto.Result;
 import com.taotao.entity.Admin;
+import com.taotao.entity.Apply;
 import com.taotao.entity.Merchant;
 import com.taotao.entity.User;
 import com.taotao.vo.MerchantVO;
@@ -42,14 +43,14 @@ public interface AdminService extends IService<Admin> {
     Result<String> registerProcess(AdminLoginFormDTO adminLoginFormDTO);
 
     /**
-     * 管理员查询商家（数据传输 adminService -> merchantService）
+     * 管理员查询商家分页中间传输方法（数据传输 adminService -> merchantService）
      * @param pageData 分页信息
      * @return 商家分页
      */
     Page<Merchant> viewMerchantOfAdminWithTransmitData(PageData pageData);
 
     /**
-     * 管理员查询用户（数据传输 adminService -> userService）
+     * 管理员查询用户分页中间传输方法（数据传输 adminService -> userService）
      * @param pageData 分页信息
      * @return 用户分页
      */
@@ -79,4 +80,11 @@ public interface AdminService extends IService<Admin> {
      * @param adminDTO 管理员状态信息
      */
     void modifyAdminStatus(AdminDTO adminDTO);
+
+    /**
+     * 管理员查询申请分页中间传输方法（数据传输 adminService -> applyService）
+     * @param pageData 分页信息
+     * @return 申请分页
+     */
+    Page<Apply> viewApplyOfAdminWithTransmitData(PageData pageData);
 }

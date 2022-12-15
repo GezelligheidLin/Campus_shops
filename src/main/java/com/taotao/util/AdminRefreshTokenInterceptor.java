@@ -47,10 +47,10 @@ public class AdminRefreshTokenInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        // 4.将查询到的 Hash数据转为 UserDTO对象
+        // 4.将查询到的 Json数据转为 AdminDTO对象
         AdminDTO adminDTO = JSONUtil.toBean(adminJson, AdminDTO.class);
 
-        // 5.存在，保存用户信息到 ThreadLocal
+        // 5.存在，保存管理员信息到 ThreadLocal
         AdminHolder.saveAdmin(adminDTO);
 
         // 6.刷新 token有效期

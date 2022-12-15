@@ -1,6 +1,8 @@
 package com.taotao.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.taotao.dto.PageData;
 import com.taotao.entity.Apply;
 
 /**
@@ -22,4 +24,11 @@ public interface ApplyService extends IService<Apply> {
      * @param userId 用户账号
      */
     void saveMerchant(Long userId);
+
+    /**
+     * 查询申请分页
+     * @param pageData 分页信息
+     * @return 申请分页
+     */
+    Page<Apply> queryApplyPage(PageData pageData);
 }

@@ -40,7 +40,6 @@ public class ShoppingTrolleyServiceImpl extends ServiceImpl<ShoppingTrolleyMappe
      */
     @Override
     public void modifyTrolley(ShoppingTrolley trolley) {
-        trolley.setCreateTime(LocalDateTime.now());
         trolley.setUpdateTime(LocalDateTime.now());
         trolleyMapper.updateTrolley(trolley);
     }
