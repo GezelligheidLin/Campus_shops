@@ -6,10 +6,7 @@ import com.taotao.entity.Commodity;
 import com.taotao.service.CommodityService;
 import com.taotao.vo.CommodityVO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -56,8 +53,8 @@ public class CommodityController {
         return Result.success(entityConvertToVO(commodityList));
     }
 
-    @GetMapping("/seek")
-    public Result<List<Commodity>> searchCommodityKeyword(String key) {
+    @GetMapping("/seek/{key}")
+    public Result<List<Commodity>> searchCommodityKeyword(@PathVariable("key") String key) {
         log.info("首页商品搜索查询。。。");
         if (key == null || key.isEmpty()) {
             return Result.fail("请输入搜索关键字");

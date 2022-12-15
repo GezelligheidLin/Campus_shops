@@ -26,8 +26,8 @@ public class ShoppingTrolleyController {
     @Resource
     private ShoppingTrolleyService trolleyService;
 
-    @GetMapping("/show")
-    public Result<ShoppingTrolleyVO> searchTrolley(Long userId) {
+    @GetMapping("/show/{userId}")
+    public Result<ShoppingTrolleyVO> searchTrolley(@PathVariable("userId") Long userId) {
         log.info("查询用户购物车。。。");
         ShoppingTrolley trolley = trolleyService.queryTrolley(userId);
         // 取出trolley中的所有商品（String型）

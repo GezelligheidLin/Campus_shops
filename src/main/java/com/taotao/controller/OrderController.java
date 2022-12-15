@@ -30,8 +30,8 @@ public class OrderController {
         return Result.success("购买成功！");
     }
 
-    @GetMapping("/view")
-    public Result<List<OrderVO>> viewOrder(@RequestParam("userId") Long userId) {
+    @GetMapping("/view/{userId}")
+    public Result<List<OrderVO>> viewOrder(@PathVariable("userId") Long userId) {
         log.info("用户查看订单中。。。");
         List<OrderVO> orderVOList = orderService.observeOrder(userId);
         return Result.success(orderVOList);
