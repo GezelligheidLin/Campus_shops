@@ -42,6 +42,11 @@
         price, evaluate, commodity_type, merchant_id
         FROM commodity WHERE commodity_name = #{commodityName};
     </select>
+    <select id="selectCommodityById" resultType="com.taotao.entity.Commodity">
+        SELECT commodity_id, commodity_name, image, description, detail,
+               price, evaluate, commodity_type, merchant_id
+        FROM commodity WHERE commodity_id = #{commodityId};
+    </select>
 
 
     <!-- 插入模块 -->

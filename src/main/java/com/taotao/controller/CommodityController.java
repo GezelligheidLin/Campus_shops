@@ -64,6 +64,18 @@ public class CommodityController {
     }
 
     /**
+     * 点击商品跳转到详情页（根据商品id查询）
+     * @param commodityId 商品id
+     * @return 商品
+     */
+    @GetMapping("/skip/{commodityId}")
+    public Result<List<Commodity>> searchCommodityById(@PathVariable("commodityId") Long commodityId) {
+        log.info("点击商品跳转到详情页（根据商品id查询）。。。");
+        List<Commodity> commodityList = commodityService.queryCommodityById(commodityId);
+        return Result.success(commodityList);
+    }
+
+    /**
      * 将商品 list转换为商品视图对象 list
      * @param list 商品 list
      * @return 商品视图对象 list

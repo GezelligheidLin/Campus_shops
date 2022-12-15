@@ -99,6 +99,16 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         save(commodity);
         return Result.success("淘品上架成功！");
     }
+
+    /**
+     * 点击商品跳转到详情页（根据商品id查询）
+     * @param commodityId 商品id
+     * @return 商品
+     */
+    @Override
+    public List<Commodity> queryCommodityById(Long commodityId) {
+        return commodityMapper.selectCommodityById(commodityId);
+    }
 }
 
 

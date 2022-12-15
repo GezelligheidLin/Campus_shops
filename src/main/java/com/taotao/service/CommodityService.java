@@ -52,4 +52,11 @@ public interface CommodityService extends IService<Commodity> {
      * @return Result
      */
     Result<String> saveGoods(CommodityVO commodityVO);
+
+    /**
+     * 点击商品跳转到详情页（根据商品id查询）
+     * @param commodityId 商品id
+     * @return 商品
+     */
+    List<Commodity> queryCommodityById(Long commodityId);
 }

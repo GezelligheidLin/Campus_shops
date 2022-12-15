@@ -63,6 +63,13 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
      * @param commodityVO 淘品视图对象
      */
     void insertGoods(CommodityVO commodityVO);
+
+    /**
+     * 点击商品跳转到详情页（根据商品id查询）
+     * @param commodityId 商品id
+     * @return 商品
+     */
+    List<Commodity> selectCommodityById(Long commodityId);
 }
 
 
