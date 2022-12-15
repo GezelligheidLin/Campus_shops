@@ -58,5 +58,5 @@ public interface CommodityService extends IService<Commodity> {
      * @param commodityId 商品id
      * @return 商品
      */
-    List<Commodity> queryCommodityById(Long commodityId);
+    Commodity queryCommodityById(Long commodityId);
 }

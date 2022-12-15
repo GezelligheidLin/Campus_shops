@@ -106,7 +106,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
      * @return 商品
      */
     @Override
-    public List<Commodity> queryCommodityById(Long commodityId) {
+    public Commodity queryCommodityById(Long commodityId) {
         return commodityMapper.selectCommodityById(commodityId);
     }
 }

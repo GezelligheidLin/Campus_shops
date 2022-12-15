@@ -69,7 +69,7 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
      * @param commodityId 商品id
      * @return 商品
      */
-    List<Commodity> selectCommodityById(Long commodityId);
+    Commodity selectCommodityById(Long commodityId);
 }
 
 

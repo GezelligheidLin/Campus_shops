@@ -60,7 +60,7 @@ public class CommodityController {
             return Result.fail("请输入搜索关键字");
         }
         List<Commodity> commodityList = commodityService.queryKeyword(key);
-        return Result.success(commodityList);
+        return Result.success(entityConvertToVO(commodityList));
     }
 
     /**
@@ -71,8 +71,9 @@ public class CommodityController {
     @GetMapping("/skip/{commodityId}")
     public Result<List<Commodity>> searchCommodityById(@PathVariable("commodityId") Long commodityId) {
         log.info("点击商品跳转到详情页（根据商品id查询）。。。");
-        List<Commodity> commodityList = commodityService.queryCommodityById(commodityId);
-        return Result.success(commodityList);
+        Commodity commodity = commodityService.queryCommodityById(commodityId);
+        CommodityVO commodityVO = BeanUtil.copyProperties(commodity, CommodityVO.class);
+        return Result.success(commodityVO);
     }
 
     /**
