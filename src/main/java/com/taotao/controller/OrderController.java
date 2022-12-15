@@ -34,6 +34,7 @@ public class OrderController {
     public Result<List<OrderVO>> viewOrder(@PathVariable("userId") Long userId) {
         log.info("用户查看订单中。。。");
         List<OrderVO> orderVOList = orderService.observeOrder(userId);
+        log.info("order = {}", orderVOList);
         return Result.success(orderVOList);
     }
 }

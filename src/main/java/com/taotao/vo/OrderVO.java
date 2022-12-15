@@ -10,6 +10,7 @@ import lombok.Data;
 public class OrderVO {
     private Long orderId;
     private Long userId;
+    private String address;
     private String nickName;
     private Long commodityId;
     private String commodityName;
