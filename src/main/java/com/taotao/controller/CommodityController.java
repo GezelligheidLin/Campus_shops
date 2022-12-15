@@ -69,7 +69,7 @@ public class CommodityController {
      * @return 商品
      */
     @GetMapping("/skip/{commodityId}")
-    public Result<List<Commodity>> searchCommodityById(@PathVariable("commodityId") Long commodityId) {
+    public Result<Commodity> searchCommodityById(@PathVariable("commodityId") Long commodityId) {
         log.info("点击商品跳转到详情页（根据商品id查询）。。。");
         Commodity commodity = commodityService.queryCommodityById(commodityId);
         CommodityVO commodityVO = BeanUtil.copyProperties(commodity, CommodityVO.class);

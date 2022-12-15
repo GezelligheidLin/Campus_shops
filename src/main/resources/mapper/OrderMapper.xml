@@ -14,7 +14,7 @@
 
     <!-- 查询模块 -->
     <select id="selectAllOrder" resultType="com.taotao.vo.OrderVO">
-        SELECT user.user_id, user.nick_name,
+        SELECT user.user_id, user.nick_name, user.address,
                commodity.commodity_id, commodity.commodity_name, commodity.description, commodity.price,
                merchant.store_name, `order`.buy_quantity, `order`.order_cost
         FROM user
