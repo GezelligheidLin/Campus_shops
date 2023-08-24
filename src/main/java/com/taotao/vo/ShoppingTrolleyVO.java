@@ -1,6 +1,8 @@
 package com.taotao.vo;
 
 import cn.hutool.json.JSON;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 /**
@@ -9,6 +11,7 @@ import lombok.Data;
  */
 @Data
 public class ShoppingTrolleyVO {
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long trolleyId;
     private Long userId;
     private Long amount;

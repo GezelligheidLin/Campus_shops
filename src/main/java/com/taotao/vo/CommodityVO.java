@@ -1,5 +1,7 @@
 package com.taotao.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 /**
@@ -8,13 +10,14 @@ import lombok.Data;
  */
 @Data
 public class CommodityVO {
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long userId;
     private Long commodityId;
     private String commodityName;
     private String image;
     private String description;
     private String detail;
     private Long price;
-    private String evaluate;
     private String commodityType;
     private Long merchantId;
 }

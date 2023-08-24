@@ -1,5 +1,7 @@
 package com.taotao.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,6 +12,7 @@ import java.util.Date;
  */
 @Data
 public class UserInfoVO {
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
     private String phone;
     private String focus;

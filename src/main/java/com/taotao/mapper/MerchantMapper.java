@@ -36,6 +36,13 @@ public interface MerchantMapper extends BaseMapper<Merchant> {
      * @param merchantVO 商家状态信息
      */
     void updateMerchantStatus(MerchantVO merchantVO);
+
+    /**
+     * 根据 userId 查询商家id
+     * @param userId 用户账号
+     * @return 商家id
+     */
+    Long selectMerchantId(Long userId);
 }
 
 

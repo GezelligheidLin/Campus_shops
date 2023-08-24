@@ -174,11 +174,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     /**
      * 更新用户个人信息
-     * @param user 用户信息
+     *  @param user 用户信息
+     * @return 是否修改成功
      */
     @Override
-    public void modifyUserInfo(User user) {
-        userMapper.updateUserInfo(user);
+    public Integer modifyUserInfo(User user) {
+        return userMapper.updateUserInfo(user);
     }
 
     /**
@@ -238,6 +239,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public void modifyUserStatusOfAdmin(UserVO userVO) {
         userMapper.updateUserStatus(userVO);
     }
+
 
     private User createWithPhone(String phone) {
         // 用户昵称 = 固定前缀 + 随机后缀字符串

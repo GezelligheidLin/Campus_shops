@@ -16,6 +16,9 @@
                 store_name LIKE "%"#{key}"%" AND is_deleted = 0;
             </where>
     </select>
+    <select id="selectMerchantId" resultType="java.lang.Long">
+        SELECT merchant_id FROM merchant WHERE user_id = #{userId};
+    </select>
 
     <!-- 更新模块 -->
     <update id="updateMerchantStatus">

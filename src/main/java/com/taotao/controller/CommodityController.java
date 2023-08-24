@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author YuLong
@@ -82,8 +81,6 @@ public class CommodityController {
      * @return 商品视图对象 list
      */
     private List<CommodityVO> entityConvertToVO(List<Commodity> list) {
-        return list.stream().map( (item) ->
-                BeanUtil.copyProperties(item, CommodityVO.class)
-        ).collect(Collectors.toList());
+        return BeanUtil.copyToList(list, CommodityVO.class);
     }
 }

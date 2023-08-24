@@ -1,6 +1,7 @@
 package com.taotao.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.json.JSONUtil;
 import com.taotao.dto.Result;
 import com.taotao.dto.UserInfoDTO;
 import com.taotao.dto.UserLoginFormDTO;
@@ -13,13 +14,18 @@ import com.taotao.vo.UserInfoVO;
 import com.taotao.vo.UserRealVO;
 import com.taotao.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
-import static com.taotao.util.SystemConstants.USER_NICK_AFTER_DIGIT;
-import static com.taotao.util.SystemConstants.USER_NICK_NAME_PREFIX;
+import static com.taotao.util.RedisConstants.USER_TOKEN_KEY;
+import static com.taotao.util.RedisConstants.USER_TOKEN_TTL;
+import static com.taotao.util.SystemConstants.*;
 
 /**
  * @author YuLong
@@ -32,6 +38,9 @@ import static com.taotao.util.SystemConstants.USER_NICK_NAME_PREFIX;
 public class UserController {
     @Resource
     private UserService userService;
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 发送短信验证码
@@ -112,7 +121,7 @@ public class UserController {
             return Result.success();
         }
         // 仅返回实名信息
-        UserRealVO userRealVO = BeanUtil.copyProperties(info,  UserRealVO.class);
+        UserRealVO userRealVO = BeanUtil.copyProperties(info, UserRealVO.class);
         return Result.success(userRealVO);
     }
 
@@ -122,7 +131,7 @@ public class UserController {
      * @return Result
      */
     @PutMapping("/update")
-    public Result<String> updateUserInfo(@RequestBody UserInfoDTO userInfoDTO) {
+    public Result<String> updateUserInfo(@RequestBody UserInfoDTO userInfoDTO, HttpServletRequest request) {
         log.info("用户常规信息修改。。。");
         Result<String> res = verifyUserInfo(userInfoDTO);
         // 不为空代表 需要返回修改信息失败结果 or 修改信息项为密码且已通过原密码验证
@@ -139,7 +148,14 @@ public class UserController {
         }
         // 为空则代表信息校验通过，可以到数据库修改相应信息
         User user = BeanUtil.copyProperties(userInfoDTO, User.class);
-        userService.modifyUserInfo(user);
+        if (Objects.equals(userService.modifyUserInfo(user), FALSE)) {
+            return Result.fail("修改个人信息失败！");
+        }
+        String token = request.getHeader(AUTHORIZATION);
+        String key = USER_TOKEN_KEY + token;
+        String userInfoJson = JSONUtil.toJsonStr(userInfoDTO);
+        stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(userInfoJson));
+        stringRedisTemplate.expire(key, USER_TOKEN_TTL, TimeUnit.SECONDS);
         return Result.success("用户信息修改成功");
     }
 

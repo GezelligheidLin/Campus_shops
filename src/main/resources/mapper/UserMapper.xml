@@ -29,6 +29,7 @@
     </select>
 
 
+
     <!-- 更新模块 -->
     <update id="updateUserInfo">
         UPDATE user

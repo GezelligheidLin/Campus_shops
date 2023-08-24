@@ -1,5 +1,7 @@
 package com.taotao.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 /**
@@ -8,6 +10,7 @@ import lombok.Data;
  */
 @Data
 public class UserRealVO {
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
     private String realName;
     private String cardId;

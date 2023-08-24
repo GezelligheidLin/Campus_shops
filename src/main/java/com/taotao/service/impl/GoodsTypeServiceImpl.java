@@ -26,7 +26,7 @@ public class GoodsTypeServiceImpl extends ServiceImpl<GoodsTypeMapper, GoodsType
 
     private static final int ICON_SIZE = 10;
 
-    private static final int CLASSIFY_GOODS_SIZE = 8;
+    private static final int CLASSIFY_GOODS_SIZE = 10;
 
     /**
      * 查询全部分类图标

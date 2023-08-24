@@ -132,8 +132,11 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant>
      */
     @Override
     public Result<String> saveGoodsOfMerchantWithTransmitData(CommodityVO commodityVO) {
+        Long merchantId = merchantMapper.selectMerchantId(commodityVO.getUserId());
+        commodityVO.setMerchantId(merchantId);
         return commodityService.saveGoods(commodityVO);
     }
+
 }
 
 

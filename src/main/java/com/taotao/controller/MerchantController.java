@@ -25,7 +25,6 @@ public class MerchantController {
 
     /**
      * 查询商家热力榜（按照粉丝数排行）
-     *
      * @return 商家 list
      */
     @GetMapping("/hotRank")
@@ -45,8 +44,7 @@ public class MerchantController {
         log.info("商家上架淘品中。。。");
         if (commodityVO.getCommodityName() == null || commodityVO.getDescription() == null
                 || commodityVO.getDetail() == null || commodityVO.getPrice() == null
-                || commodityVO.getEvaluate() == null || commodityVO.getCommodityType() == null
-                || commodityVO.getMerchantId() == null){
+                || commodityVO.getCommodityType() == null){
             return Result.fail("待上架淘品信息不全，上架失败");
         }
         return merchantService.saveGoodsOfMerchantWithTransmitData(commodityVO);

@@ -30,6 +30,9 @@ public class ShoppingTrolleyController {
     public Result<ShoppingTrolleyVO> searchTrolley(@PathVariable("userId") Long userId) {
         log.info("查询用户购物车。。。");
         ShoppingTrolley trolley = trolleyService.queryTrolley(userId);
+        if (trolley == null) {
+            return Result.fail("您的购物车里面没有商品");
+        }
         // 取出trolley中的所有商品（String型）
         String goodsJson = trolley.getGoods();
         // 新建购物车视图对象

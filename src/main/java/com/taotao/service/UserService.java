@@ -57,9 +57,10 @@ public interface UserService extends IService<User> {
 
     /**
      * 更新用户个人信息
-     * @param user 用户信息
+     *  @param user 用户信息
+     * @return 是否修改成功
      */
-    void modifyUserInfo(User user);
+    Integer modifyUserInfo(User user);
 
     /**
      * 用户实名认证

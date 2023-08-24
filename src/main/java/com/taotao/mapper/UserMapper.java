@@ -41,8 +41,9 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 更新用户个人信息
      * @param user 用户信息
+     * @return 更新是否成功
      */
-    void updateUserInfo(User user);
+    Integer updateUserInfo(User user);
 
     /**
      * 用户实名认证
